@@ -10,8 +10,10 @@
 
 ## 시작하기
 
+> Node 20은 2026년 4월에 지원이 종료되었고, Vitest 5 · tsup 9 · jsdom 30이 Node 22.22 이상을 요구하므로 최소 버전을 22.22로 둡니다.
+
 ```bash
-corepack enable          # pnpm 활성화 (Node 20+)
+corepack enable          # pnpm 활성화 (Node 22.22+)
 pnpm install
 pnpm dev                 # 패키지 빌드 후 문서 사이트 실행
 pnpm test                # 전체 테스트 (Vitest + Testing Library + vitest-axe)
