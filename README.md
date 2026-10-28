@@ -1,3 +1,55 @@
 # LogicUI
 
-스타일 없이 동작·접근성·키보드 인터랙션만 제공하는 헤드리스 UI 라이브러리 모노레포입니다.
+스타일(CSS) 없이 **동작 메커니즘, WAI-ARIA 접근성, 키보드 인터랙션**만 제공하는 헤드리스 UI 라이브러리 모노레포입니다.
+
+| 패키지 | 설명 |
+| --- | --- |
+| [`@logic-ui/primitives`](packages/primitives) | 순수 헤드리스 로직 코어. CSS 0%, 상태·포커스·키보드·ARIA만 담당 |
+| [`@logic-ui/ui`](packages/ui) | primitives에 Tailwind CSS 스타일을 입힌 레퍼런스 디자인 시스템 |
+| [`apps/docs`](apps/docs) | Vite + React 기반 인터랙티브 문서·플레이그라운드 |
+
+## 시작하기
+
+> Node 20은 2026년 4월에 지원이 종료되었고, Vitest 5 · tsup 9 · jsdom 30이 Node 22.22 이상을 요구하므로 최소 버전을 22.22로 둡니다.
+
+```bash
+corepack enable          # pnpm 활성화 (Node 22.22+)
+pnpm install
+pnpm dev                 # 패키지 빌드 후 문서 사이트 실행
+pnpm test                # 전체 테스트 (Vitest + Testing Library + vitest-axe)
+pnpm build               # 전체 빌드 (Turborepo)
+```
+
+## Dialog
+
+```tsx
+import { Dialog } from '@logic-ui/primitives/dialog';
+
+<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+  <Dialog.Trigger>열기</Dialog.Trigger>
+  <Dialog.Portal>
+    <Dialog.Overlay />
+    <Dialog.Content>
+      <Dialog.Title>제목</Dialog.Title>
+      <Dialog.Description>내용</Dialog.Description>
+      <Dialog.Close>닫기</Dialog.Close>
+    </Dialog.Content>
+  </Dialog.Portal>
+</Dialog.Root>;
+```
+
+[WAI-ARIA APG Modal Dialog 패턴](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)을 따릅니다.
+
+- `role="dialog"`, `aria-modal`, `aria-labelledby`(Title), `aria-describedby`(Description) 자동 연결
+- Trigger에 `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`
+- 열리면 첫 포커스 가능 요소로 포커스, Tab / Shift+Tab 순환(포커스 트랩), 닫히면 트리거로 포커스 복귀
+- Esc·바깥 클릭으로 닫기 (`onEscapeKeyDown`, `onPointerDownOutside`에서 `preventDefault()`로 막기 가능)
+- 모달 동안 바깥 요소 `inert` 처리, body 스크롤 잠금(스크롤바 폭 보정)
+- 중첩 다이얼로그: Esc·바깥 클릭·포커스 트랩은 가장 위 레이어에만 적용
+- 제어(`open`/`onOpenChange`) · 비제어(`defaultOpen`) 모드, `modal={false}` 비모달 모드
+- 모든 파트에 `asChild` 지원, 스타일링용 `data-state="open" | "closed"`
+
+## 배포
+
+`pnpm changeset`으로 변경 기록을 남기고 main에 머지하면 Release 워크플로가 버전 업 PR을 열고,
+그 PR이 머지되면 npm에 배포합니다. 저장소 시크릿에 `NPM_TOKEN`이 필요합니다.
