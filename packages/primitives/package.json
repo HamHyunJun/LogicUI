@@ -3,6 +3,28 @@
   "version": "0.1.0",
   "description": "스타일 없이 동작·접근성·키보드 인터랙션만 제공하는 헤드리스 React 프리미티브",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HamHyunJun/LogicUI.git",
+    "directory": "packages/primitives"
+  },
+  "homepage": "https://logicui.vercel.app",
+  "bugs": {
+    "url": "https://github.com/HamHyunJun/LogicUI/issues"
+  },
+  "keywords": [
+    "react",
+    "headless",
+    "unstyled",
+    "accessibility",
+    "a11y",
+    "wai-aria",
+    "dialog",
+    "tabs",
+    "accordion",
+    "popover",
+    "tooltip"
+  ],
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",

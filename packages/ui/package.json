@@ -3,6 +3,28 @@
   "version": "0.1.0",
   "description": "@logic-ui-kit/primitives 위에 Tailwind CSS로 스타일을 입힌 레퍼런스 디자인 시스템",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HamHyunJun/LogicUI.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://logicui.vercel.app",
+  "bugs": {
+    "url": "https://github.com/HamHyunJun/LogicUI/issues"
+  },
+  "keywords": [
+    "react",
+    "tailwind",
+    "tailwindcss",
+    "design-system",
+    "accessibility",
+    "a11y",
+    "dialog",
+    "tabs",
+    "accordion",
+    "popover",
+    "tooltip"
+  ],
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",
