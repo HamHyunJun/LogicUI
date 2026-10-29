@@ -10,6 +10,7 @@ export default defineConfig({
     'tooltip/index': 'src/tooltip/index.ts',
     'tabs/index': 'src/tabs/index.ts',
     'menu/index': 'src/menu/index.ts',
+    'switch/index': 'src/switch/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

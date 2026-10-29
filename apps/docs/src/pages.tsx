@@ -9,6 +9,7 @@ import {
   Playground,
   TabsExample,
   TooltipExample,
+  SwitchExample,
 } from './examples';
 
 export interface DocPage {
@@ -381,6 +382,39 @@ export const PAGES: DocPage[] = [
       ['Enter / Space', '포커스된 항목을 선택한다. 기본적으로 메뉴가 닫히고 트리거로 포커스가 돌아간다.'],
       ['Esc', '메뉴를 닫고 트리거로 포커스를 되돌린다.'],
       ['Tab', '메뉴를 닫고 트리거로 포커스를 되돌린다.'],
+    ],
+  },
+  {
+    slug: 'switch',
+    title: 'Switch',
+    summary: '켜짐과 꺼짐 두 상태를 전환하는 스위치입니다. button에 role="switch"를 주어 Space와 Enter로 전환하고, label로 이름을 붙입니다.',
+    apg: { label: 'Switch', href: `${APG}/switch/` },
+    examples: [{ title: '예제', description: 'label을 눌러도 전환됩니다. 비활성 스위치는 포커스와 전환에서 제외됩니다.', node: <SwitchExample /> }],
+    code: `import { Switch } from '@logic-ui-kit/primitives/switch';
+
+<label htmlFor="airplane">비행기 모드</label>
+<Switch.Root id="airplane" checked={on} onCheckedChange={setOn} name="airplane">
+  <Switch.Thumb />
+</Switch.Root>`,
+    parts: [
+      {
+        name: 'Switch.Root',
+        description: 'role="switch"인 button. name을 주면 폼 제출을 위한 숨은 체크박스 input을 함께 렌더한다.',
+        props: [
+          { name: 'checked', type: 'boolean', description: '제어 모드의 켜짐 상태.' },
+          { name: 'defaultChecked', type: 'boolean', description: '비제어 모드의 초기 켜짐 상태.', default: 'false' },
+          { name: 'onCheckedChange', type: '(checked: boolean) => void', description: '켜짐 상태가 바뀌어야 할 때 호출된다.' },
+          { name: 'disabled', type: 'boolean', description: '비활성화. data-disabled가 붙는다.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름. 켜져 있을 때만 값이 제출된다.' },
+          { name: 'value', type: 'string', description: '켜져 있을 때 제출되는 값.', default: "'on'" },
+        ],
+      },
+      { name: 'Switch.Thumb', description: '움직이는 손잡이. data-state="checked" | "unchecked"로 위치를 스타일링한다.' },
+    ],
+    keys: [
+      ['Space', '켜짐과 꺼짐을 전환한다.'],
+      ['Enter', '켜짐과 꺼짐을 전환한다(APG 선택 사항).'],
+      ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
     ],
   },
 ];

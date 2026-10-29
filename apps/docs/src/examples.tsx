@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Dialog, Menu, Popover, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Dialog, Menu, Popover, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -309,6 +309,33 @@ export function MenuExample() {
       <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
         마지막 선택: {last || '없음'} · 눈금자 {ruler ? '켜짐' : '꺼짐'} · 정렬 {sort === 'name' ? '이름순' : '날짜순'}
       </p>
+    </div>
+  );
+}
+
+export function SwitchExample() {
+  const [airplane, setAirplane] = React.useState(false);
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex items-center gap-3">
+        <Switch.Root id="airplane" checked={airplane} onCheckedChange={setAirplane}>
+          <Switch.Thumb />
+        </Switch.Root>
+        <label htmlFor="airplane" className="text-sm font-medium">
+          비행기 모드
+        </label>
+        <span className="text-sm text-zinc-500">
+          상태: <code className="font-mono">{airplane ? 'on' : 'off'}</code>
+        </span>
+      </div>
+      <div className="flex items-center gap-3">
+        <Switch.Root id="beta" disabled>
+          <Switch.Thumb />
+        </Switch.Root>
+        <label htmlFor="beta" className="text-sm font-medium text-zinc-500">
+          베타 기능 (비활성)
+        </label>
+      </div>
     </div>
   );
 }

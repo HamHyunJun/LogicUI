@@ -93,6 +93,16 @@
         "default": "./dist/menu/index.cjs"
       }
     },
+    "./switch": {
+      "import": {
+        "types": "./dist/switch/index.d.ts",
+        "default": "./dist/switch/index.mjs"
+      },
+      "require": {
+        "types": "./dist/switch/index.d.cts",
+        "default": "./dist/switch/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -121,6 +131,9 @@
       ],
       "menu": [
         "./dist/menu/index.d.ts"
+      ],
+      "switch": [
+        "./dist/switch/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"
