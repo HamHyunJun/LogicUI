@@ -9,9 +9,9 @@
 ## Key Files
 | File | Description |
 |------|-------------|
-| `src/index.ts` | export: `Dialog`·`Tabs`·`Accordion`·`Popover`·`Tooltip`·`Menu`(네임스페이스), `Button`, `ButtonProps`, `cn` |
+| `src/index.ts` | export: `Dialog`·`AlertDialog`·`Tabs`·`Accordion`·`Popover`·`Tooltip`·`Menu`·`Select`·`Combobox`·`Switch`·`Checkbox`·`RadioGroup`·`ToggleGroup`·`Slider`·`Progress`·`Toast`·`Breadcrumb`(네임스페이스), `Button`, `ButtonProps`, `cn` |
 | `src/dialog.tsx` | primitives Dialog에 스타일 입힘. Trigger·Portal·Close·Root는 그대로 재노출, Overlay·Content·Title·Description은 스타일 래핑, Header·Footer는 신규 |
-| `src/tabs.tsx`, `src/accordion.tsx`, `src/popover.tsx`, `src/tooltip.tsx`, `src/menu.tsx` | 같은 방식으로 primitives에 스타일만 입힌 래퍼. 스타일이 필요 없는 파트는 그대로 재노출 |
+| `src/tabs.tsx`, `src/accordion.tsx`, `src/popover.tsx`, `src/tooltip.tsx`, `src/menu.tsx` 등 컴포넌트마다 `src/<name>.tsx`. `alert-dialog.tsx`는 Dialog의 Overlay·Header·Footer·Title·Description을 재사용 | 같은 방식으로 primitives에 스타일만 입힌 래퍼. 스타일이 필요 없는 파트는 그대로 재노출 |
 | `src/button.tsx` | `primary`/`secondary`/`ghost` variant 버튼. `Dialog.Trigger asChild`와 함께 사용 |
 | `src/cn.ts` | `clsx` + `tailwind-merge` |
 | `src/dialog.test.tsx` | 스타일 래퍼 테스트 |

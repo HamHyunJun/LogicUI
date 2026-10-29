@@ -46,8 +46,19 @@ import { Dialog } from '@logic-ui-kit/primitives/dialog';
 | Popover | `@logic-ui-kit/primitives/popover` | 비모달 Dialog |
 | Tooltip | `@logic-ui-kit/primitives/tooltip` | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
 | Menu | `@logic-ui-kit/primitives/menu` | [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) |
+| Switch | `@logic-ui-kit/primitives/switch` | [Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) |
+| Checkbox | `@logic-ui-kit/primitives/checkbox` | [Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) |
+| RadioGroup | `@logic-ui-kit/primitives/radio-group` | [Radio Group](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) |
+| Progress | `@logic-ui-kit/primitives/progress` | WAI-ARIA progressbar 역할 |
+| ToggleGroup | `@logic-ui-kit/primitives/toggle-group` | [Button (toggle)](https://www.w3.org/WAI/ARIA/apg/patterns/button/) |
+| Breadcrumb | `@logic-ui-kit/primitives/breadcrumb` | [Breadcrumb](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) |
+| Slider | `@logic-ui-kit/primitives/slider` | [Slider](https://www.w3.org/WAI/ARIA/apg/patterns/slider/) |
+| AlertDialog | `@logic-ui-kit/primitives/alert-dialog` | [Alert Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/) |
+| Toast | `@logic-ui-kit/primitives/toast` | WAI-ARIA live region |
+| Select | `@logic-ui-kit/primitives/select` | [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/) |
+| Combobox | `@logic-ui-kit/primitives/combobox` | [Editable Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) |
 
-Popover·Tooltip·Menu의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를 지원하지 않고, 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
+Popover·Tooltip·Menu·Select·Combobox의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를, Slider는 범위(다중 썸)를, Select는 그룹을 지원하지 않습니다. Menu·Select의 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
 
 스타일이 입혀진 버전은 [`@logic-ui-kit/ui`](https://www.npmjs.com/package/@logic-ui-kit/ui)를 보세요.
 

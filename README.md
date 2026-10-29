@@ -58,9 +58,20 @@ pnpm e2e                 # 실제 Chromium 검사 (처음 한 번: pnpm --filter
 | Popover | `@logic-ui-kit/primitives/popover` | Root · Trigger · Portal · Content · Close | 비모달 Dialog |
 | Tooltip | `@logic-ui-kit/primitives/tooltip` | Root · Trigger · Portal · Content | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
 | Menu | `@logic-ui-kit/primitives/menu` | Root · Trigger · Portal · Content · Item · CheckboxItem · RadioGroup · RadioItem · Separator | [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) |
+| Switch | `@logic-ui-kit/primitives/switch` | Root · Thumb | [Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) |
+| Checkbox | `@logic-ui-kit/primitives/checkbox` | Root · Indicator | [Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) |
+| RadioGroup | `@logic-ui-kit/primitives/radio-group` | Root · Item · Indicator | [Radio Group](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) |
+| Progress | `@logic-ui-kit/primitives/progress` | Root · Indicator | WAI-ARIA progressbar 역할 |
+| ToggleGroup | `@logic-ui-kit/primitives/toggle-group` | Root · Item | [Button (toggle)](https://www.w3.org/WAI/ARIA/apg/patterns/button/) |
+| Breadcrumb | `@logic-ui-kit/primitives/breadcrumb` | Root · List · Item · Link · Page · Separator | [Breadcrumb](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) |
+| Slider | `@logic-ui-kit/primitives/slider` | Root · Track · Range · Thumb | [Slider](https://www.w3.org/WAI/ARIA/apg/patterns/slider/) |
+| AlertDialog | `@logic-ui-kit/primitives/alert-dialog` | Root · Trigger · Portal · Overlay · Content · Title · Description · Cancel · Action | [Alert Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/) |
+| Toast | `@logic-ui-kit/primitives/toast` | Provider · Viewport · Root · Title · Description · Action · Close | WAI-ARIA live region |
+| Select | `@logic-ui-kit/primitives/select` | Root · Trigger · Value · Portal · Content · Item | [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/) |
+| Combobox | `@logic-ui-kit/primitives/combobox` | Root · Input · Portal · Content · Item | [Editable Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) |
 
 모든 컴포넌트는 합성 컴포넌트(`Root` + 하위 파트), 제어·비제어 상태, `asChild`, `forwardRef`, 스타일링용 `data-*` 속성, 취소 가능한 콜백(`preventDefault()`)을 공통으로 지원합니다.
-Popover·Tooltip·Menu의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를 지원하지 않고, 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
+Popover·Tooltip·Menu·Select·Combobox의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를, Slider는 범위(다중 썸)를, Select는 그룹을 지원하지 않습니다. Menu·Select의 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
 
 ### Dialog
 

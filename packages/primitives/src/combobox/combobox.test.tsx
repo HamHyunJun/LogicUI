@@ -178,6 +178,19 @@ describe('Combobox', () => {
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
+    it('IME 조합 중의 Enter는 옵션을 선택하지 않는다', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+      render(<TestCombobox onValueChange={onValueChange} />);
+      await user.type(input(), 'ap');
+      await user.keyboard('{ArrowDown}');
+      fireEvent.keyDown(input(), { key: 'Enter', isComposing: true });
+      expect(onValueChange).not.toHaveBeenCalled();
+      expect(input()).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.keyDown(input(), { key: 'Enter' }); // 조합이 끝난 뒤에는 선택한다
+      expect(onValueChange).toHaveBeenCalledWith('apple');
+    });
+
     it('Esc는 선택하지 않고 닫는다', async () => {
       const user = userEvent.setup();
       render(<TestCombobox />);
