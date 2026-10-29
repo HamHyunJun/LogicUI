@@ -6,6 +6,7 @@ export default defineConfig({
     index: 'src/index.ts',
     'dialog/index': 'src/dialog/index.ts',
     'popover/index': 'src/popover/index.ts',
+    'tooltip/index': 'src/tooltip/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

@@ -39,6 +39,16 @@
         "default": "./dist/popover/index.cjs"
       }
     },
+    "./tooltip": {
+      "import": {
+        "types": "./dist/tooltip/index.d.ts",
+        "default": "./dist/tooltip/index.mjs"
+      },
+      "require": {
+        "types": "./dist/tooltip/index.d.cts",
+        "default": "./dist/tooltip/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -48,6 +58,9 @@
       ],
       "popover": [
         "./dist/popover/index.d.ts"
+      ],
+      "tooltip": [
+        "./dist/tooltip/index.d.ts"
       ]
     }
   },

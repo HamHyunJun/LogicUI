@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui/primitives/dialog';
-import { Button, Dialog, Popover } from '@logic-ui/ui';
+import { Button, Dialog, Popover, Tooltip } from '@logic-ui/ui';
 import * as React from 'react';
 
 export function App() {
@@ -31,6 +31,10 @@ export function App() {
 
         <Section title="키보드 인터랙션">
           <KeyboardTable />
+        </Section>
+
+        <Section title="Tooltip" description="호버(지연 후)나 키보드 포커스로 열리고, Esc로 닫힙니다. 툴팁 위로 포인터를 옮겨도 유지됩니다.">
+          <TooltipExample />
         </Section>
 
         <Section title="Popover" description="트리거 옆에 뜨는 비모달 팝오버입니다. 공간이 부족하면 반대편으로 뒤집히고, Esc·바깥 클릭·포커스 이탈로 닫힙니다.">
@@ -188,6 +192,23 @@ function NestedExample() {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+function TooltipExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+        <Tooltip.Root key={side}>
+          <Tooltip.Trigger asChild>
+            <Button variant="secondary">{side}</Button>
+          </Tooltip.Trigger>
+          <Tooltip.Portal>
+            <Tooltip.Content side={side}>툴팁이 {side} 방향에 표시됩니다</Tooltip.Content>
+          </Tooltip.Portal>
+        </Tooltip.Root>
+      ))}
+    </div>
   );
 }
 
