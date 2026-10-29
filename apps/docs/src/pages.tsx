@@ -11,6 +11,7 @@ import {
   TooltipExample,
   SwitchExample,
   CheckboxExample,
+  RadioGroupExample,
 } from './examples';
 
 export interface DocPage {
@@ -452,6 +453,55 @@ export const PAGES: DocPage[] = [
     keys: [
       ['Space', '체크 상태를 전환한다. 중간 상태에서는 체크된다.'],
       ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
+    ],
+  },
+  {
+    slug: 'radio-group',
+    title: 'Radio Group',
+    summary: '여러 항목 중 하나만 선택합니다. 그룹 전체가 Tab 정지점 하나이고, 방향키가 포커스 이동과 선택을 함께 합니다.',
+    apg: { label: 'Radio Group', href: `${APG}/radio/` },
+    examples: [{ title: '예제', description: 'Tab으로 그룹에 들어간 뒤 방향키로 선택을 바꿔 보세요. 비활성 항목은 건너뜁니다.', node: <RadioGroupExample /> }],
+    code: `import { RadioGroup } from '@logic-ui-kit/primitives/radio-group';
+
+<RadioGroup.Root aria-label="요금제" value={plan} onValueChange={setPlan} name="plan">
+  <RadioGroup.Item value="free" id="free"><RadioGroup.Indicator /></RadioGroup.Item>
+  <label htmlFor="free">무료</label>
+  <RadioGroup.Item value="pro" id="pro"><RadioGroup.Indicator /></RadioGroup.Item>
+  <label htmlFor="pro">프로</label>
+</RadioGroup.Root>`,
+    parts: [
+      {
+        name: 'RadioGroup.Root',
+        description: 'role="radiogroup". aria-label 또는 aria-labelledby로 이름을 붙인다.',
+        props: [
+          { name: 'value', type: 'string', description: '제어 모드의 선택 값.' },
+          { name: 'defaultValue', type: 'string', description: '비제어 모드의 초기 선택 값.' },
+          { name: 'onValueChange', type: '(value: string) => void', description: '선택 값이 바뀌어야 할 때 호출된다.' },
+          { name: 'disabled', type: 'boolean', description: '모든 항목을 비활성화한다.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름. 선택된 항목의 값만 제출된다.' },
+          { name: 'required', type: 'boolean', description: 'aria-required를 붙인다.' },
+          { name: 'orientation', type: "'horizontal' | 'vertical'", description: '스타일링용 data-orientation. 방향키 동작은 방향과 무관하다(APG).' },
+        ],
+      },
+      {
+        name: 'RadioGroup.Item',
+        description: 'role="radio"인 button. 선택된 항목(없으면 첫 활성 항목)만 tabindex=0이다.',
+        props: [
+          { name: 'value', type: 'string', description: '이 항목이 나타내는 값.' },
+          { name: 'disabled', type: 'boolean', description: '이 항목만 비활성화한다. 방향키 이동에서 건너뛴다.' },
+        ],
+      },
+      {
+        name: 'RadioGroup.Indicator',
+        description: '선택된 항목에서만 렌더되는 표시 영역.',
+        props: [{ name: 'forceMount', type: 'boolean', description: '선택되지 않았어도 렌더한다.' }],
+      },
+    ],
+    keys: [
+      ['Tab / Shift + Tab', '그룹 안으로 들어가 선택된 항목(없으면 첫 항목)에 포커스한다. 그룹을 벗어난다.'],
+      ['↓ / →', '다음 항목으로 포커스를 옮기며 선택한다. 마지막에서는 첫 항목으로 순환한다.'],
+      ['↑ / ←', '이전 항목으로 포커스를 옮기며 선택한다. 첫 항목에서는 마지막으로 순환한다.'],
+      ['Space', '포커스된 항목이 선택되어 있지 않으면 선택한다.'],
     ],
   },
 ];
