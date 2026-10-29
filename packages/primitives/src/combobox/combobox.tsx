@@ -163,7 +163,8 @@ export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputPro
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-      if (disabled) return;
+      // 한글 등 IME 조합 중의 Enter·방향키는 조합을 확정·수정하는 키라서 옵션 선택으로 쓰지 않는다.
+      if (disabled || event.nativeEvent.isComposing) return;
       if (event.key === 'ArrowDown') {
         event.preventDefault();
         if (!ctx.open) {

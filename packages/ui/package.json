@@ -25,7 +25,14 @@
     "popover",
     "tooltip",
     "menu",
-    "dropdown-menu"
+    "dropdown-menu",
+    "switch",
+    "checkbox",
+    "radio-group",
+    "slider",
+    "toast",
+    "select",
+    "combobox"
   ],
   "sideEffects": false,
   "type": "module",

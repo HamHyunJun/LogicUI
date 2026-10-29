@@ -17,6 +17,13 @@
 | `src/popover/popover.tsx` | Popover: 비모달 `role="dialog"`. Esc·바깥 포인터·포커스 이탈 닫기, 위치 계산 |
 | `src/tooltip/tooltip.tsx` | Tooltip: `role="tooltip"`. 호버 지연(`delayDuration`)·유예(`closeDelay`), 포커스 즉시 열림, Esc |
 | `src/menu/menu.tsx` | Menu(APG Menu Button): Root·Trigger·Portal·Content·Item·CheckboxItem·RadioGroup·RadioItem·Separator. 방향키·Home/End·글자 탐색, Tab은 닫고 트리거로 복귀, 항목 `onSelect`(취소 가능). 서브메뉴 없음 |
+| `src/alert-dialog/alert-dialog.tsx` | AlertDialog: Dialog 위의 얇은 래퍼. `role="alertdialog"`, 바깥 클릭으로 닫히지 않음, 열릴 때 Cancel에 포커스 |
+| `src/select/select.tsx` | Select(APG select-only combobox): 포커스는 트리거에 두고 `aria-activedescendant`. 라벨 표시를 위해 Portal이 닫혀 있어도 옵션을 마운트(Content `hidden`) |
+| `src/combobox/combobox.tsx` | Combobox(APG list autocomplete, 수동 선택): 입력창 포커스 유지. 옵션 거르기는 소비자 몫(`inputValue`) |
+| `src/switch/`, `src/checkbox/`, `src/radio-group/`, `src/toggle-group/` | Switch·Checkbox(중간 상태)·RadioGroup(로빙 tabindex, 방향키가 선택까지)·ToggleGroup(single/multiple, 방향키는 포커스만). 폼 값은 숨은 input |
+| `src/slider/slider.tsx` | Slider(단일 썸): 키보드 키 전체 + 포인터 드래그(문서 리스너). 위치는 CSS 변수 `--logicui-slider-percent`(유일한 인라인 스타일 예외) |
+| `src/progress/`, `src/breadcrumb/` | Progress(progressbar 역할, 값이 유효하지 않으면 indeterminate)·Breadcrumb(nav > ol, `aria-current`) |
+| `src/toast/toast.tsx` | Toast: Provider·Viewport(미리 존재하는 region, F8)·Root(포털, 호버·포커스 중 타이머 일시정지) |
 | `src/*/index.ts` | 컴포넌트마다 네임스페이스(`export * as X`)와 개별 이름·Props 타입 export |
 | `src/dialog/dialog.test.tsx` | APG 키보드·ARIA·포커스·제어/비제어·axe 테스트 |
 | `tsup.config.ts` | 서브패스 엔트리 정의 (`index`, `dialog/index`), ESM/CJS/d.ts |
@@ -27,7 +34,7 @@
 ## Subdirectories
 | Directory | Purpose |
 |-----------|---------|
-| `src/dialog/`, `src/tabs/`, `src/accordion/`, `src/popover/`, `src/tooltip/`, `src/menu/` | 컴포넌트별 구현과 테스트 |
+| `src/dialog/`, `src/alert-dialog/`, `src/tabs/`, `src/accordion/`, `src/popover/`, `src/tooltip/`, `src/menu/`, `src/select/`, `src/combobox/`, `src/switch/`, `src/checkbox/`, `src/radio-group/`, `src/toggle-group/`, `src/slider/`, `src/progress/`, `src/breadcrumb/`, `src/toast/` | 컴포넌트별 구현과 테스트 |
 | `src/shared/` | 컴포넌트 공용 로직 (아래 표) |
 | `test/` | 테스트 셋업 |
 
@@ -38,8 +45,8 @@
 | `hide-others.ts` | 모달 바깥 요소 `inert` 처리 |
 | `scroll-lock.ts` | 참조 카운트 기반 body 스크롤 잠금 |
 | `position.ts` | 순수 위치 계산(`computePosition`): 반대편 뒤집기 + 뷰포트 보정. 단위 테스트 있음 |
-| `use-floating-position.ts` | content를 anchor 옆에 `position: fixed`로 배치, 스크롤·리사이즈 시 재계산, `data-side` 노출 |
-| `portal.tsx` | SSR 안전한 포털 (Popover·Tooltip·Menu가 사용) |
+| `use-floating-position.ts` | content를 anchor 옆에 `position: fixed`로 배치, 스크롤·리사이즈 시 재계산, `data-side` 노출. `enabled=false`면 계산·구독을 하지 않음(숨겨 둔 채 마운트하는 Select용) |
+| `portal.tsx` | SSR 안전한 포털 (Popover·Tooltip·Menu·Select·Combobox가 사용) |
 | `dom.ts` | 레이아웃 비의존 tabbable 탐색, `focus()` |
 | `slot.tsx`, `primitive.tsx` | `asChild` 구현 (`getComp`, `AsChildProps`) |
 | `compose-refs.ts`, `compose-event-handlers.ts` | ref·핸들러 합성 (소비자가 `preventDefault()`하면 내부 동작 건너뜀) |
