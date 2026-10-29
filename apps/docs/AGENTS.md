@@ -9,13 +9,13 @@
 ## Key Files
 | File | Description |
 |------|-------------|
-| `src/App.tsx` | 데모 페이지 전체. 섹션: Dialog(Playground·스타일 없는 원본·중첩), 키보드 인터랙션 표, Accordion(multiple·collapsible 토글), Tooltip(4방향), Popover(방향 선택), Tabs(manual·vertical 토글), 라이트/다크 토글 |
+| `src/App.tsx` | 데모 페이지 전체. 섹션: Dialog(Playground·스타일 없는 원본·중첩), 키보드 인터랙션 표, Accordion(multiple·collapsible 토글), Tooltip(4방향), Popover(방향 선택), Menu(액션·체크박스·라디오), Tabs(manual·vertical 토글), 라이트/다크 토글 |
 | `src/index.css` | Tailwind import, `@source '../../../packages/ui/src'`, `dark` 커스텀 변형(클래스 기반) |
 | `src/main.tsx` | React 진입점 |
 | `index.html` | `lang="ko"`, 타이틀 `LogicUI 문서` |
 | `vite.config.ts` | `@vitejs/plugin-react` + `@tailwindcss/vite` |
 | `package.json` | `build`는 `tsc --noEmit && vite build`, `e2e`는 `playwright test` |
-| `playwright.config.ts`, `e2e/*.spec.ts` | 브라우저 E2E: Dialog(포커스 트랩·Esc·중첩), Tabs/Accordion 키보드, Tooltip/Popover 배치·닫기 |
+| `playwright.config.ts`, `e2e/*.spec.ts` | 브라우저 E2E: Dialog(포커스 트랩·Esc·중첩), Tabs/Accordion 키보드, Tooltip/Popover 배치·닫기, Menu 키보드·선택·배치 |
 
 ## For AI Agents
 

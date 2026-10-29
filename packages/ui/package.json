@@ -23,7 +23,9 @@
     "tabs",
     "accordion",
     "popover",
-    "tooltip"
+    "tooltip",
+    "menu",
+    "dropdown-menu"
   ],
   "sideEffects": false,
   "type": "module",

@@ -57,9 +57,10 @@ pnpm e2e                 # 실제 Chromium 검사 (처음 한 번: pnpm --filter
 | Accordion | `@logic-ui-kit/primitives/accordion` | Root · Item · Header · Trigger · Content | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
 | Popover | `@logic-ui-kit/primitives/popover` | Root · Trigger · Portal · Content · Close | 비모달 Dialog |
 | Tooltip | `@logic-ui-kit/primitives/tooltip` | Root · Trigger · Portal · Content | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
+| Menu | `@logic-ui-kit/primitives/menu` | Root · Trigger · Portal · Content · Item · CheckboxItem · RadioGroup · RadioItem · Separator | [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) |
 
 모든 컴포넌트는 합성 컴포넌트(`Root` + 하위 파트), 제어·비제어 상태, `asChild`, `forwardRef`, 스타일링용 `data-*` 속성, 취소 가능한 콜백(`preventDefault()`)을 공통으로 지원합니다.
-Popover와 Tooltip의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다.
+Popover·Tooltip·Menu의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를 지원하지 않고, 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
 
 ### Dialog
 

@@ -3,7 +3,7 @@
 **Generated:** 2026-10-29 · **Updated:** 2026-10-29
 
 ## Purpose
-스타일(CSS) 없이 동작·WAI-ARIA 접근성·키보드 인터랙션만 제공하는 헤드리스 React UI 라이브러리 모노레포. pnpm 워크스페이스 + Turborepo, Changesets로 npm 배포. 현재 구현된 컴포넌트는 Dialog, Tabs, Accordion, Popover, Tooltip이다.
+스타일(CSS) 없이 동작·WAI-ARIA 접근성·키보드 인터랙션만 제공하는 헤드리스 React UI 라이브러리 모노레포. pnpm 워크스페이스 + Turborepo, Changesets로 npm 배포. 현재 구현된 컴포넌트는 Dialog, Tabs, Accordion, Popover, Tooltip, Menu이다.
 
 작업 규칙(언어, 컴포넌트 API 형태, 테스트 규칙, Git 규칙)의 원문은 루트 `CLAUDE.md`다. 이 문서는 구조 안내이며 규칙을 복제하지 않는다.
 

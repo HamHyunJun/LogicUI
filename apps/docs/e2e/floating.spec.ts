@@ -2,9 +2,9 @@ import { expect, test, type Locator, type Page } from '@playwright/test';
 
 type Side = 'top' | 'right' | 'bottom' | 'left';
 
-// 진입 애니메이션(scale)이 끝나야 박스가 실제 레이아웃 크기와 같다.
+// 진입 애니메이션이 끝나야 박스가 실제 레이아웃 크기와 같다. Tailwind v4는 transform이 아니라 개별 scale 속성을 쓴다.
 const settled = (content: Locator): Promise<void> =>
-  expect.poll(() => content.evaluate((el) => getComputedStyle(el).transform)).toBe('none');
+  expect.poll(() => content.evaluate((el) => getComputedStyle(el).scale)).toBe('none');
 
 // 콘텐츠가 trigger 바깥쪽에 놓였고(겹침 0.5px 허용) 뷰포트 안에 있는지 검사한다.
 const expectPlacedOutside = async (page: Page, trigger: Locator, content: Locator, side: Side): Promise<void> => {

@@ -48,7 +48,7 @@ import { Button, Dialog } from '@logic-ui-kit/ui';
 
 ## 컴포넌트
 
-`Dialog`, `Tabs`, `Accordion`, `Popover`, `Tooltip`, `Button`(`primary` · `secondary` · `ghost`)와 클래스 병합 유틸 `cn`을 내보냅니다.
+`Dialog`, `Tabs`, `Accordion`, `Popover`, `Tooltip`, `Menu`, `Button`(`primary` · `secondary` · `ghost`)와 클래스 병합 유틸 `cn`을 내보냅니다.
 
 소비자가 넘긴 `className`은 `cn()`(clsx + tailwind-merge)으로 병합되어 기본 스타일을 덮어씁니다.
 

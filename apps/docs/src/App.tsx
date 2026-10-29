@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Dialog, Popover, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Dialog, Menu, Popover, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 
 export function App() {
@@ -43,6 +43,13 @@ export function App() {
 
         <Section title="Popover" description="트리거 옆에 뜨는 비모달 팝오버입니다. 공간이 부족하면 반대편으로 뒤집히고, Esc·바깥 클릭·포커스 이탈로 닫힙니다.">
           <PopoverExample />
+        </Section>
+
+        <Section
+          title="Menu"
+          description="WAI-ARIA APG의 Menu Button 패턴입니다. ↑/↓/Home/End와 글자 입력으로 이동하고, Enter·Space로 선택하며, Esc로 닫습니다."
+        >
+          <MenuExample />
         </Section>
 
         <Section title="Tabs" description="WAI-ARIA APG의 Tabs 패턴입니다. 방향키로 이동하며, manual 모드에서는 Enter/Space로 선택합니다.">
@@ -318,6 +325,57 @@ function PopoverExample() {
           </Popover.Portal>
         </Popover.Root>
       </div>
+    </div>
+  );
+}
+
+function MenuExample() {
+  const [ruler, setRuler] = React.useState(true);
+  const [sort, setSort] = React.useState('name');
+  const [last, setLast] = React.useState('');
+  return (
+    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <Menu.Root>
+        <Menu.Trigger asChild>
+          <Button variant="secondary">파일</Button>
+        </Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Content>
+            <Menu.Item onSelect={() => setLast('새 파일')}>새 파일</Menu.Item>
+            <Menu.Item onSelect={() => setLast('열기')}>열기</Menu.Item>
+            <Menu.Item disabled>인쇄</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item onSelect={() => setLast('저장')}>저장</Menu.Item>
+            <Menu.Item onSelect={() => setLast('다른 이름으로 저장')}>다른 이름으로 저장</Menu.Item>
+          </Menu.Content>
+        </Menu.Portal>
+      </Menu.Root>
+
+      <Menu.Root>
+        <Menu.Trigger asChild>
+          <Button variant="secondary">보기</Button>
+        </Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Content>
+            <Menu.CheckboxItem checked={ruler} onCheckedChange={setRuler} onSelect={(event) => event.preventDefault()}>
+              눈금자
+            </Menu.CheckboxItem>
+            <Menu.Separator />
+            <Menu.RadioGroup aria-label="정렬 기준" value={sort} onValueChange={setSort}>
+              <Menu.RadioItem value="name" onSelect={(event) => event.preventDefault()}>
+                이름순
+              </Menu.RadioItem>
+              <Menu.RadioItem value="date" onSelect={(event) => event.preventDefault()}>
+                날짜순
+              </Menu.RadioItem>
+            </Menu.RadioGroup>
+          </Menu.Content>
+        </Menu.Portal>
+      </Menu.Root>
+
+      <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
+        마지막 선택: {last || '없음'} · 눈금자 {ruler ? '켜짐' : '꺼짐'} · 정렬 {sort === 'name' ? '이름순' : '날짜순'}
+      </p>
     </div>
   );
 }

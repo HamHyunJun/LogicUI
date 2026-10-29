@@ -16,6 +16,7 @@
 | `src/accordion/accordion.tsx` | Accordion: Root·Item·Header·Trigger·Content. `value`는 항상 `string[]`, single/multiple, collapsible |
 | `src/popover/popover.tsx` | Popover: 비모달 `role="dialog"`. Esc·바깥 포인터·포커스 이탈 닫기, 위치 계산 |
 | `src/tooltip/tooltip.tsx` | Tooltip: `role="tooltip"`. 호버 지연(`delayDuration`)·유예(`closeDelay`), 포커스 즉시 열림, Esc |
+| `src/menu/menu.tsx` | Menu(APG Menu Button): Root·Trigger·Portal·Content·Item·CheckboxItem·RadioGroup·RadioItem·Separator. 방향키·Home/End·글자 탐색, Tab은 닫고 트리거로 복귀, 항목 `onSelect`(취소 가능). 서브메뉴 없음 |
 | `src/*/index.ts` | 컴포넌트마다 네임스페이스(`export * as X`)와 개별 이름·Props 타입 export |
 | `src/dialog/dialog.test.tsx` | APG 키보드·ARIA·포커스·제어/비제어·axe 테스트 |
 | `tsup.config.ts` | 서브패스 엔트리 정의 (`index`, `dialog/index`), ESM/CJS/d.ts |
@@ -26,7 +27,7 @@
 ## Subdirectories
 | Directory | Purpose |
 |-----------|---------|
-| `src/dialog/`, `src/tabs/`, `src/accordion/`, `src/popover/`, `src/tooltip/` | 컴포넌트별 구현과 테스트 |
+| `src/dialog/`, `src/tabs/`, `src/accordion/`, `src/popover/`, `src/tooltip/`, `src/menu/` | 컴포넌트별 구현과 테스트 |
 | `src/shared/` | 컴포넌트 공용 로직 (아래 표) |
 | `test/` | 테스트 셋업 |
 
@@ -38,7 +39,7 @@
 | `scroll-lock.ts` | 참조 카운트 기반 body 스크롤 잠금 |
 | `position.ts` | 순수 위치 계산(`computePosition`): 반대편 뒤집기 + 뷰포트 보정. 단위 테스트 있음 |
 | `use-floating-position.ts` | content를 anchor 옆에 `position: fixed`로 배치, 스크롤·리사이즈 시 재계산, `data-side` 노출 |
-| `portal.tsx` | SSR 안전한 포털 (Popover·Tooltip이 사용) |
+| `portal.tsx` | SSR 안전한 포털 (Popover·Tooltip·Menu가 사용) |
 | `dom.ts` | 레이아웃 비의존 tabbable 탐색, `focus()` |
 | `slot.tsx`, `primitive.tsx` | `asChild` 구현 (`getComp`, `AsChildProps`) |
 | `compose-refs.ts`, `compose-event-handlers.ts` | ref·핸들러 합성 (소비자가 `preventDefault()`하면 내부 동작 건너뜀) |
