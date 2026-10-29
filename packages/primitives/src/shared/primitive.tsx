@@ -8,6 +8,6 @@ export interface AsChildProps {
 }
 
 /** asChild 여부에 따라 기본 태그 또는 Slot을 반환한다. */
-export function getComp(tag: 'button' | 'div' | 'h2' | 'h3' | 'p', asChild: boolean | undefined): React.ElementType {
+export function getComp(tag: keyof React.JSX.IntrinsicElements, asChild: boolean | undefined): React.ElementType {
   return asChild ? Slot : tag;
 }
