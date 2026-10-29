@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui/primitives/dialog';
-import { Button, Dialog, Tabs } from '@logic-ui/ui';
+import { Accordion, Button, Dialog, Tabs } from '@logic-ui/ui';
 import * as React from 'react';
 
 export function App() {
@@ -31,6 +31,10 @@ export function App() {
 
         <Section title="키보드 인터랙션">
           <KeyboardTable />
+        </Section>
+
+        <Section title="Accordion" description="WAI-ARIA APG의 Accordion 패턴입니다. ↑/↓/Home/End로 헤더 사이를 이동합니다.">
+          <AccordionExample />
         </Section>
 
         <Section title="Tabs" description="WAI-ARIA APG의 Tabs 패턴입니다. 방향키로 이동하며, manual 모드에서는 Enter/Space로 선택합니다.">
@@ -218,6 +222,40 @@ function TabsExample() {
           <Tabs.Content value="security" className="mt-0">비밀번호와 2단계 인증을 관리합니다.</Tabs.Content>
         </div>
       </Tabs.Root>
+    </div>
+  );
+}
+
+function AccordionExample() {
+  const [multiple, setMultiple] = React.useState(false);
+  const [collapsible, setCollapsible] = React.useState(true);
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <Toggle label="multiple" checked={multiple} onChange={setMultiple} />
+        <Toggle label="collapsible (single)" checked={collapsible} onChange={setCollapsible} />
+      </div>
+      {/* type을 바꾸면 열린 상태가 의미를 잃으므로 key로 초기화한다. */}
+      <Accordion.Root key={String(multiple)} type={multiple ? 'multiple' : 'single'} collapsible={collapsible} defaultValue={['what']}>
+        <Accordion.Item value="what">
+          <Accordion.Header>
+            <Accordion.Trigger>헤드리스 UI란?</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content>스타일 없이 동작·접근성·키보드 인터랙션만 제공하는 컴포넌트입니다.</Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="a11y">
+          <Accordion.Header>
+            <Accordion.Trigger>접근성은 어떻게 보장하나요?</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content>WAI-ARIA APG 패턴의 키보드 표를 테스트로 옮겨 검증합니다.</Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="disabled" disabled>
+          <Accordion.Header>
+            <Accordion.Trigger>비활성 항목</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content>열리지 않습니다.</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
     </div>
   );
 }

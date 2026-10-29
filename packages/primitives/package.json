@@ -39,6 +39,16 @@
         "default": "./dist/tabs/index.cjs"
       }
     },
+    "./accordion": {
+      "import": {
+        "types": "./dist/accordion/index.d.ts",
+        "default": "./dist/accordion/index.mjs"
+      },
+      "require": {
+        "types": "./dist/accordion/index.d.cts",
+        "default": "./dist/accordion/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -48,6 +58,9 @@
       ],
       "tabs": [
         "./dist/tabs/index.d.ts"
+      ],
+      "accordion": [
+        "./dist/accordion/index.d.ts"
       ]
     }
   },
