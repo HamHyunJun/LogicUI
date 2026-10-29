@@ -29,6 +29,26 @@
         "default": "./dist/dialog/index.cjs"
       }
     },
+    "./tabs": {
+      "import": {
+        "types": "./dist/tabs/index.d.ts",
+        "default": "./dist/tabs/index.mjs"
+      },
+      "require": {
+        "types": "./dist/tabs/index.d.cts",
+        "default": "./dist/tabs/index.cjs"
+      }
+    },
+    "./accordion": {
+      "import": {
+        "types": "./dist/accordion/index.d.ts",
+        "default": "./dist/accordion/index.mjs"
+      },
+      "require": {
+        "types": "./dist/accordion/index.d.cts",
+        "default": "./dist/accordion/index.cjs"
+      }
+    },
     "./popover": {
       "import": {
         "types": "./dist/popover/index.d.ts",
@@ -45,6 +65,12 @@
     "*": {
       "dialog": [
         "./dist/dialog/index.d.ts"
+      ],
+      "tabs": [
+        "./dist/tabs/index.d.ts"
+      ],
+      "accordion": [
+        "./dist/accordion/index.d.ts"
       ],
       "popover": [
         "./dist/popover/index.d.ts"

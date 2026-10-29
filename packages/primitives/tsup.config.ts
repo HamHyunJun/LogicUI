@@ -4,8 +4,10 @@ export default defineConfig({
   // 서브패스 export(@logic-ui/primitives/dialog)마다 엔트리를 둔다.
   entry: {
     index: 'src/index.ts',
+    'accordion/index': 'src/accordion/index.ts',
     'dialog/index': 'src/dialog/index.ts',
     'popover/index': 'src/popover/index.ts',
+    'tabs/index': 'src/tabs/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),
