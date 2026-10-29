@@ -18,6 +18,7 @@ import {
   SliderExample,
   AlertDialogExample,
   ToastExample,
+  SelectExample,
 } from './examples';
 
 export interface DocPage {
@@ -741,6 +742,81 @@ export const PAGES: DocPage[] = [
       ['F8', '알림 영역(Viewport)으로 포커스를 옮긴다. 자동으로 사라지는 알림에 키보드로 닿을 수 있다.'],
       ['Tab', '알림 안의 버튼(Action, Close)으로 이동한다. 포커스가 안에 있는 동안은 자동 닫힘이 멈춘다.'],
       ['Esc', '포커스된 알림을 닫는다.'],
+    ],
+  },
+  {
+    slug: 'select',
+    title: 'Select',
+    summary: '목록에서 하나를 고르는 선택 상자입니다. DOM 포커스는 항상 트리거에 있고 aria-activedescendant로 현재 옵션을 알리며, 글자 입력으로 옵션을 찾을 수 있습니다.',
+    apg: { label: 'Select-Only Combobox', href: `${APG}/combobox/examples/combobox-select-only/` },
+    examples: [{ title: '예제', description: '↑/↓·Home/End·글자 입력으로 옵션을 가리키고 Enter로 선택하세요. 마지막 예제는 Dialog 안에서 Esc가 목록만 먼저 닫는지 보여 줍니다.', node: <SelectExample /> }],
+    code: `import { Select } from '@logic-ui-kit/primitives/select';
+
+<span id="fruit-label">과일</span>
+<Select.Root value={fruit} onValueChange={setFruit} name="fruit">
+  <Select.Trigger aria-labelledby="fruit-label">
+    <Select.Value placeholder="선택하세요" />
+  </Select.Trigger>
+  <Select.Portal>
+    <Select.Content>
+      <Select.Item value="apple">Apple</Select.Item>
+      <Select.Item value="banana">Banana</Select.Item>
+    </Select.Content>
+  </Select.Portal>
+</Select.Root>`,
+    parts: [
+      {
+        name: 'Select.Root',
+        props: [
+          { name: 'value', type: 'string', description: '제어 모드의 선택 값.' },
+          { name: 'defaultValue', type: 'string', description: '비제어 모드의 초기 선택 값.' },
+          { name: 'onValueChange', type: '(value: string) => void', description: '선택 값이 바뀌어야 할 때 호출된다.' },
+          ...open,
+          { name: 'disabled', type: 'boolean', description: '비활성화.' },
+          { name: 'required', type: 'boolean', description: 'aria-required를 붙인다.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름. 선택 값이 숨은 input으로 제출된다.' },
+        ],
+      },
+      { name: 'Select.Trigger', description: 'role="combobox"인 button. aria-haspopup="listbox", aria-expanded, aria-controls, aria-activedescendant를 자동으로 관리한다. aria-label 또는 aria-labelledby로 이름을 붙인다.' },
+      {
+        name: 'Select.Value',
+        description: '트리거 안에 선택된 옵션의 라벨(없으면 placeholder)을 보여 준다. 옵션이 닫혀 있어도 마운트되어 있어서 라벨을 알 수 있다.',
+        props: [
+          { name: 'placeholder', type: 'ReactNode', description: '선택된 값이 없을 때 보여 줄 내용. data-placeholder가 붙는다.' },
+          { name: 'children', type: 'ReactNode', description: '지정하면 옵션의 라벨 대신 이 내용을 보여 준다.' },
+        ],
+      },
+      { name: 'Select.Portal', description: '목록을 document.body(또는 container)로 옮긴다. 다른 Portal과 달리 닫혀 있어도 렌더한다(옵션 라벨 때문).', props: [{ name: 'container', type: 'Element | DocumentFragment | null', description: '포털을 붙일 대상.', default: 'document.body' }] },
+      {
+        name: 'Select.Content',
+        description: 'role="listbox". 닫혀 있을 때는 hidden이다. 열리면 트리거 너비를 CSS 변수 --logicui-select-trigger-width로 노출한다.',
+        props: [
+          ...placement.filter((p) => p.name !== 'forceMount').map((p) => (p.name === 'side' ? { ...p, default: "'bottom'" } : p.name === 'align' ? { ...p, default: "'start'" } : p)),
+          escapeProp,
+          pointerOutsideProp,
+        ],
+      },
+      {
+        name: 'Select.Item',
+        description: 'role="option". 선택되면 aria-selected, 가리키면 data-highlighted가 붙는다.',
+        props: [
+          { name: 'value', type: 'string', description: '이 옵션이 나타내는 값.' },
+          { name: 'disabled', type: 'boolean', description: '포커스 이동과 선택에서 제외된다. aria-disabled가 붙는다.' },
+          { name: 'textValue', type: 'string', description: 'Value에 보여 줄 라벨. 기본은 옵션의 텍스트다.' },
+        ],
+      },
+    ],
+    keys: [
+      ['Enter / Space / ↓', '닫혀 있을 때 목록을 열고 선택된 옵션(없으면 첫 옵션)을 가리킨다.'],
+      ['↑', '닫혀 있을 때 목록을 열고 선택된 옵션(없으면 마지막 옵션)을 가리킨다.'],
+      ['↓ / ↑', '열려 있을 때 다음/이전 옵션을 가리킨다. 비활성 옵션은 건너뛰고 끝에서 멈춘다.'],
+      ['Home / End', '첫/마지막 옵션을 가리킨다.'],
+      ['PageDown / PageUp', '10개씩 아래/위로 옮긴다.'],
+      ['글자 입력', '그 글자로 시작하는 옵션을 가리킨다(닫혀 있으면 열면서). 같은 글자를 반복하면 순환하고, 이어서 입력하면 접두사로 찾는다. IME 조합 입력(한글 등)에서는 동작하지 않는다.'],
+      ['Enter / Space', '가리키는 옵션을 선택하고 목록을 닫는다.'],
+      ['Alt + ↑', '가리키는 옵션을 선택하고 목록을 닫는다.'],
+      ['Tab', '가리키는 옵션을 선택하고 닫은 뒤 포커스를 다음 요소로 보낸다.'],
+      ['Esc', '선택을 바꾸지 않고 목록을 닫는다. Dialog 안에서는 목록만 먼저 닫힌다.'],
     ],
   },
 ];
