@@ -113,6 +113,16 @@
         "default": "./dist/checkbox/index.cjs"
       }
     },
+    "./radio-group": {
+      "import": {
+        "types": "./dist/radio-group/index.d.ts",
+        "default": "./dist/radio-group/index.mjs"
+      },
+      "require": {
+        "types": "./dist/radio-group/index.d.cts",
+        "default": "./dist/radio-group/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -147,6 +157,9 @@
       ],
       "checkbox": [
         "./dist/checkbox/index.d.ts"
+      ],
+      "radio-group": [
+        "./dist/radio-group/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

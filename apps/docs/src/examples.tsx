@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Checkbox, Dialog, Menu, Popover, RadioGroup, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -372,6 +372,33 @@ export function CheckboxExample() {
           필수 약관 (비활성)
         </label>
       </div>
+    </div>
+  );
+}
+
+export function RadioGroupExample() {
+  const [plan, setPlan] = React.useState('pro');
+  const plans = [
+    ['free', '무료', '개인 프로젝트에 적합합니다.'],
+    ['pro', '프로', '팀 협업 기능이 포함됩니다.'],
+    ['team', '팀', '조직 단위 관리가 가능합니다.'],
+  ] as const;
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <RadioGroup.Root aria-label="요금제" value={plan} onValueChange={setPlan}>
+        {plans.map(([value, label, description]) => (
+          <div key={value} className="flex items-start gap-3">
+            <RadioGroup.Item id={`plan-${value}`} value={value} disabled={value === 'team'} />
+            <label htmlFor={`plan-${value}`} className="grid text-sm">
+              <span className="font-medium">{label}{value === 'team' && ' (비활성)'}</span>
+              <span className="text-zinc-500">{description}</span>
+            </label>
+          </div>
+        ))}
+      </RadioGroup.Root>
+      <p className="text-sm text-zinc-500">
+        선택: <code className="font-mono">{plan}</code>
+      </p>
     </div>
   );
 }
