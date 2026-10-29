@@ -29,12 +29,25 @@
         "default": "./dist/dialog/index.cjs"
       }
     },
+    "./tabs": {
+      "import": {
+        "types": "./dist/tabs/index.d.ts",
+        "default": "./dist/tabs/index.mjs"
+      },
+      "require": {
+        "types": "./dist/tabs/index.d.cts",
+        "default": "./dist/tabs/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "dialog": [
         "./dist/dialog/index.d.ts"
+      ],
+      "tabs": [
+        "./dist/tabs/index.d.ts"
       ]
     }
   },
