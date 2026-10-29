@@ -26,12 +26,9 @@ const expectPlacedOutside = async (page: Page, trigger: Locator, content: Locato
   expect(c.y + c.height).toBeLessThanOrEqual(viewport.height);
 };
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/');
-});
-
 for (const side of ['top', 'right', 'bottom', 'left'] as const) {
   test(`Tooltip ${side}: 호버로 열리고 trigger와 겹치지 않으며 Esc로 닫힌다`, async ({ page }) => {
+    await page.goto('/#/tooltip');
     const trigger = page.getByRole('button', { name: side, exact: true }).first();
     await trigger.scrollIntoViewIfNeeded();
     await trigger.hover();
@@ -45,6 +42,7 @@ for (const side of ['top', 'right', 'bottom', 'left'] as const) {
   });
 
   test(`Popover ${side}: 클릭으로 열리고 trigger와 겹치지 않으며 Esc로 닫히고 포커스가 돌아온다`, async ({ page }) => {
+    await page.goto('/#/popover');
     const trigger = page.getByRole('button', { name: '크기 설정' });
     await trigger.scrollIntoViewIfNeeded();
     await page.getByRole('radio', { name: side, exact: true }).check();

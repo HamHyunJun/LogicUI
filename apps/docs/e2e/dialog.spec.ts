@@ -4,7 +4,7 @@ const focusInsideDialog = (page: Page): Promise<boolean> =>
   page.evaluate(() => !!document.activeElement?.closest('[role="dialog"]'));
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/dialog');
 });
 
 test('열리면 포커스가 내부로 이동하고 Tab·Shift+Tab 포커스가 밖으로 나가지 않는다', async ({ page }) => {

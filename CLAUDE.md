@@ -72,7 +72,7 @@ pnpm --filter @logic-ui-kit/primitives test   # 패키지 하나만
 3. `packages/primitives/tsup.config.ts`의 `entry`에 `'<name>/index'`를 추가한다.
 4. `packages/primitives/package.json`의 `exports`에 `./<name>` 서브패스(import/require 각각 types·default)와 `typesVersions`를 추가한다.
 5. `<name>.test.tsx`를 작성한다 (아래 테스트 규칙).
-6. 필요하면 `packages/ui/src/<name>.tsx`에 스타일 버전을 추가하고, `apps/docs`에 예제를 추가한다.
+6. 필요하면 `packages/ui/src/<name>.tsx`에 스타일 버전을 추가하고, `apps/docs`에 예제(`examples.tsx`)와 페이지 데이터(`pages.tsx`: Props·키보드 표)를 추가한다.
 7. `pnpm changeset`으로 변경 기록을 남긴다.
 
 ## 테스트 규칙
