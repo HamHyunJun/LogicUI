@@ -193,6 +193,16 @@
         "default": "./dist/select/index.cjs"
       }
     },
+    "./combobox": {
+      "import": {
+        "types": "./dist/combobox/index.d.ts",
+        "default": "./dist/combobox/index.mjs"
+      },
+      "require": {
+        "types": "./dist/combobox/index.d.cts",
+        "default": "./dist/combobox/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -251,6 +261,9 @@
       ],
       "select": [
         "./dist/select/index.d.ts"
+      ],
+      "combobox": [
+        "./dist/combobox/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

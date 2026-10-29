@@ -19,6 +19,7 @@ import {
   AlertDialogExample,
   ToastExample,
   SelectExample,
+  ComboboxExample,
 } from './examples';
 
 export interface DocPage {
@@ -817,6 +818,74 @@ export const PAGES: DocPage[] = [
       ['Alt + ↑', '가리키는 옵션을 선택하고 목록을 닫는다.'],
       ['Tab', '가리키는 옵션을 선택하고 닫은 뒤 포커스를 다음 요소로 보낸다.'],
       ['Esc', '선택을 바꾸지 않고 목록을 닫는다. Dialog 안에서는 목록만 먼저 닫힌다.'],
+    ],
+  },
+  {
+    slug: 'combobox',
+    title: 'Combobox',
+    summary: '입력창에 타이핑해 목록에서 고르는 자동완성입니다. DOM 포커스는 항상 입력창에 있고 aria-activedescendant로 옵션을 가리키며, 옵션을 거르는 일은 소비자가 합니다.',
+    apg: { label: 'Editable Combobox (List Autocomplete)', href: `${APG}/combobox/examples/combobox-autocomplete-list/` },
+    examples: [{ title: '예제', description: '"국"처럼 일부만 입력하면 거른 목록이 열립니다. ↓로 옵션을 가리키고 Enter로 선택하세요. 옵션을 가리키지 않은 Enter는 아무것도 선택하지 않습니다.', node: <ComboboxExample /> }],
+    code: `import { Combobox } from '@logic-ui-kit/primitives/combobox';
+
+const matches = countries.filter((c) => c.includes(text));
+
+<label htmlFor="country">나라</label>
+<Combobox.Root value={country} onValueChange={setCountry} inputValue={text} onInputValueChange={setText}>
+  <Combobox.Input id="country" />
+  <Combobox.Portal>
+    <Combobox.Content>
+      {matches.map((c) => <Combobox.Item key={c} value={c}>{c}</Combobox.Item>)}
+      {matches.length === 0 && <div>일치하는 나라가 없습니다.</div>}
+    </Combobox.Content>
+  </Combobox.Portal>
+</Combobox.Root>`,
+    parts: [
+      {
+        name: 'Combobox.Root',
+        description: '선택 값(value)과 입력 텍스트(inputValue)를 따로 관리한다. 옵션을 고르면 입력 텍스트는 그 옵션의 라벨로 채워진다.',
+        props: [
+          { name: 'value', type: 'string', description: '제어 모드의 선택 값.' },
+          { name: 'defaultValue', type: 'string', description: '비제어 모드의 초기 선택 값.' },
+          { name: 'onValueChange', type: '(value: string) => void', description: '선택 값이 바뀌어야 할 때 호출된다.' },
+          { name: 'inputValue', type: 'string', description: '제어 모드의 입력 텍스트.' },
+          { name: 'defaultInputValue', type: 'string', description: '비제어 모드의 초기 입력 텍스트.', default: "''" },
+          { name: 'onInputValueChange', type: '(value: string) => void', description: '입력 텍스트가 바뀌어야 할 때(타이핑, 옵션 선택) 호출된다. 이 값으로 옵션을 거른다.' },
+          ...open,
+          { name: 'disabled', type: 'boolean', description: '비활성화.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름. 입력 텍스트가 아니라 선택 값이 숨은 input으로 제출된다.' },
+        ],
+      },
+      { name: 'Combobox.Input', description: 'role="combobox"인 input. aria-autocomplete="list", aria-expanded, aria-controls, aria-activedescendant를 자동으로 관리한다. label 또는 aria-label로 이름을 붙인다.' },
+      { ...portal, name: 'Combobox.Portal' },
+      {
+        name: 'Combobox.Content',
+        description: 'role="listbox". 열리면 입력창 너비를 CSS 변수 --logicui-combobox-input-width로 노출한다. 일치하는 옵션이 없을 때 보여 줄 안내는 직접 렌더한다.',
+        props: [
+          ...placement.map((p) => (p.name === 'side' ? { ...p, default: "'bottom'" } : p.name === 'align' ? { ...p, default: "'start'" } : p)),
+          escapeProp,
+          pointerOutsideProp,
+        ],
+      },
+      {
+        name: 'Combobox.Item',
+        description: 'role="option". 선택되면 aria-selected, 가리키면 data-highlighted가 붙는다.',
+        props: [
+          { name: 'value', type: 'string', description: '이 옵션이 나타내는 값.' },
+          { name: 'disabled', type: 'boolean', description: '포커스 이동과 선택에서 제외된다. aria-disabled가 붙는다.' },
+          { name: 'textValue', type: 'string', description: '선택했을 때 입력창에 채울 텍스트. 기본은 옵션의 텍스트다.' },
+        ],
+      },
+    ],
+    keys: [
+      ['글자 입력', '목록을 열고(아직 아무 옵션도 가리키지 않음) onInputValueChange로 알린다.'],
+      ['↓', '닫혀 있으면 열고 첫 옵션을, 열려 있으면 다음 옵션을 가리킨다.'],
+      ['↑', '닫혀 있으면 열고 마지막 옵션을, 열려 있으면 이전 옵션을 가리킨다.'],
+      ['Alt + ↓ / Alt + ↑', '옵션을 가리키지 않고 목록을 열거나 닫는다.'],
+      ['Enter', '옵션을 가리키고 있으면 선택하고 입력창을 라벨로 채운 뒤 닫는다(폼은 제출하지 않음). 가리키는 옵션이 없으면 아무것도 하지 않는다.'],
+      ['Esc', '선택하지 않고 목록을 닫는다. 입력 텍스트는 그대로 둔다.'],
+      ['Tab', '선택하지 않고 목록을 닫은 뒤 포커스를 다음 요소로 보낸다.'],
+      ['Home / End', '가로채지 않는다. 입력창 안의 커서를 움직인다.'],
     ],
   },
 ];
