@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -550,6 +550,39 @@ export function SliderExample() {
           </Slider.Root>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function AlertDialogExample() {
+  const [deleted, setDeleted] = React.useState(0);
+  return (
+    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <AlertDialog.Root>
+        <AlertDialog.Trigger asChild>
+          <Button variant="secondary">프로젝트 삭제</Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Portal>
+          <AlertDialog.Overlay />
+          <AlertDialog.Content>
+            <AlertDialog.Header>
+              <AlertDialog.Title>프로젝트를 삭제할까요?</AlertDialog.Title>
+              <AlertDialog.Description>삭제하면 모든 데이터가 사라지며 되돌릴 수 없습니다.</AlertDialog.Description>
+            </AlertDialog.Header>
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel asChild>
+                <Button variant="secondary">취소</Button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action asChild onClick={() => setDeleted((n) => n + 1)}>
+                <Button className="bg-red-600 text-white hover:bg-red-500 dark:bg-red-600 dark:text-white">삭제</Button>
+              </AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog.Portal>
+      </AlertDialog.Root>
+      <span className="text-sm text-zinc-500">
+        삭제 횟수: <code className="font-mono">{deleted}</code>
+      </span>
     </div>
   );
 }
