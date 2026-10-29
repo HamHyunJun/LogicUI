@@ -9,7 +9,7 @@
 ## Key Files
 | File | Description |
 |------|-------------|
-| `src/App.tsx` | 데모 페이지 전체. 섹션: Playground(제어 모드, modal/Esc/바깥 클릭 토글, 이벤트 로그), 스타일 없는 원본(비제어), 중첩 다이얼로그, 키보드 인터랙션 표, 라이트/다크 토글 |
+| `src/App.tsx` | 데모 페이지 전체. 섹션: Dialog(Playground·스타일 없는 원본·중첩), 키보드 인터랙션 표, Accordion(multiple·collapsible 토글), Tooltip(4방향), Popover(방향 선택), Tabs(manual·vertical 토글), 라이트/다크 토글 |
 | `src/index.css` | Tailwind import, `@source '../../../packages/ui/src'`, `dark` 커스텀 변형(클래스 기반) |
 | `src/main.tsx` | React 진입점 |
 | `index.html` | `lang="ko"`, 타이틀 `LogicUI 문서` |

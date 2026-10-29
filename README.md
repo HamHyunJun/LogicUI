@@ -2,7 +2,7 @@
 
 스타일(CSS) 없이 **동작 메커니즘, WAI-ARIA 접근성, 키보드 인터랙션**만 제공하는 헤드리스 UI 라이브러리 모노레포입니다.
 
-**[데모 보기 →](https://logicui.vercel.app)** — Dialog 플레이그라운드, 중첩 다이얼로그, 키보드 인터랙션 표
+**[데모 보기 →](https://logicui.vercel.app)** — 컴포넌트별 플레이그라운드와 키보드 인터랙션 표
 
 | 패키지 | 설명 |
 | --- | --- |
@@ -22,7 +22,20 @@ pnpm test                # 전체 테스트 (Vitest + Testing Library + vitest-a
 pnpm build               # 전체 빌드 (Turborepo)
 ```
 
-## Dialog
+## 컴포넌트
+
+| 컴포넌트 | 서브패스 | 구성 | APG 패턴 |
+| --- | --- | --- | --- |
+| Dialog | `@logic-ui/primitives/dialog` | Root · Trigger · Portal · Overlay · Content · Title · Description · Close | [Modal Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) |
+| Tabs | `@logic-ui/primitives/tabs` | Root · List · Trigger · Content | [Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) |
+| Accordion | `@logic-ui/primitives/accordion` | Root · Item · Header · Trigger · Content | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
+| Popover | `@logic-ui/primitives/popover` | Root · Trigger · Portal · Content · Close | 비모달 Dialog |
+| Tooltip | `@logic-ui/primitives/tooltip` | Root · Trigger · Portal · Content | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
+
+모든 컴포넌트는 합성 컴포넌트(`Root` + 하위 파트), 제어·비제어 상태, `asChild`, `forwardRef`, 스타일링용 `data-*` 속성, 취소 가능한 콜백(`preventDefault()`)을 공통으로 지원합니다.
+Popover와 Tooltip의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다.
+
+### Dialog
 
 ```tsx
 import { Dialog } from '@logic-ui/primitives/dialog';
