@@ -1,5 +1,16 @@
 # @logic-ui-kit/ui
 
+## 0.2.0
+
+### Minor Changes
+
+- cc8dd2f: Menu 프리미티브(WAI-ARIA Menu Button 패턴)와 Tailwind 스타일 Menu를 추가합니다. Item, CheckboxItem, RadioGroup/RadioItem, Separator를 지원하며 서브메뉴는 아직 지원하지 않습니다.
+
+### Patch Changes
+
+- Updated dependencies [cc8dd2f]
+  - @logic-ui-kit/primitives@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
