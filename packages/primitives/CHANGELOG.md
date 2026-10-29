@@ -1,5 +1,11 @@
 # @logic-ui-kit/primitives
 
+## 0.1.1
+
+### Patch Changes
+
+- 1f0e528: npm 패키지 페이지에 README, LICENSE, 저장소·홈페이지·키워드 메타데이터를 추가합니다. 코드 변경은 없습니다.
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@logic-ui-kit/primitives",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "스타일 없이 동작·접근성·키보드 인터랙션만 제공하는 헤드리스 React 프리미티브",
   "license": "MIT",
   "repository": {
