@@ -2,6 +2,8 @@
 
 스타일(CSS) 없이 **동작 메커니즘, WAI-ARIA 접근성, 키보드 인터랙션**만 제공하는 헤드리스 UI 라이브러리 모노레포입니다.
 
+**[데모 보기 →](https://logicui.vercel.app)** — Dialog 플레이그라운드, 중첩 다이얼로그, 키보드 인터랙션 표
+
 | 패키지 | 설명 |
 | --- | --- |
 | [`@logic-ui/primitives`](packages/primitives) | 순수 헤드리스 로직 코어. CSS 0%, 상태·포커스·키보드·ARIA만 담당 |
