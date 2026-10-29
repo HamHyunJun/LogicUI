@@ -5,5 +5,6 @@ export * as Tooltip from './tooltip';
 export * as Tabs from './tabs';
 export * as Menu from './menu';
 export * as Switch from './switch';
+export * as Checkbox from './checkbox';
 export { Button, type ButtonProps } from './button';
 export { cn } from './cn';

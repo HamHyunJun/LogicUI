@@ -11,6 +11,7 @@ export default defineConfig({
     'tabs/index': 'src/tabs/index.ts',
     'menu/index': 'src/menu/index.ts',
     'switch/index': 'src/switch/index.ts',
+    'checkbox/index': 'src/checkbox/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

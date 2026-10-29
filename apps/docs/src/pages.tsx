@@ -10,6 +10,7 @@ import {
   TabsExample,
   TooltipExample,
   SwitchExample,
+  CheckboxExample,
 } from './examples';
 
 export interface DocPage {
@@ -414,6 +415,42 @@ export const PAGES: DocPage[] = [
     keys: [
       ['Space', '켜짐과 꺼짐을 전환한다.'],
       ['Enter', '켜짐과 꺼짐을 전환한다(APG 선택 사항).'],
+      ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
+    ],
+  },
+  {
+    slug: 'checkbox',
+    title: 'Checkbox',
+    summary: '체크와 해제, 그리고 일부만 선택된 중간 상태(indeterminate)를 지원합니다. 부모-자식 체크박스 구성에서 부모를 중간 상태로 표시할 수 있습니다.',
+    apg: { label: 'Checkbox', href: `${APG}/checkbox/` },
+    examples: [{ title: '예제', description: '"모두 선택"은 자식 일부만 체크되면 중간 상태(aria-checked="mixed")가 됩니다.', node: <CheckboxExample /> }],
+    code: `import { Checkbox } from '@logic-ui-kit/primitives/checkbox';
+
+<label htmlFor="terms">이용약관 동의</label>
+<Checkbox.Root id="terms" checked={checked} onCheckedChange={setChecked} name="terms">
+  <Checkbox.Indicator>✓</Checkbox.Indicator>
+</Checkbox.Root>`,
+    parts: [
+      {
+        name: 'Checkbox.Root',
+        description: 'role="checkbox"인 button. name을 주면 폼 제출용 숨은 체크박스 input을 함께 렌더한다(체크된 경우에만 값 제출).',
+        props: [
+          { name: 'checked', type: "boolean | 'indeterminate'", description: "제어 모드의 체크 상태. 'indeterminate'는 aria-checked=\"mixed\"."},
+          { name: 'defaultChecked', type: "boolean | 'indeterminate'", description: '비제어 모드의 초기 체크 상태.', default: 'false' },
+          { name: 'onCheckedChange', type: "(checked: boolean | 'indeterminate') => void", description: '체크 상태가 바뀌어야 할 때 호출된다. 중간 상태에서 누르면 true가 된다.' },
+          { name: 'disabled', type: 'boolean', description: '비활성화. data-disabled가 붙는다.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름.' },
+          { name: 'value', type: 'string', description: '체크되어 있을 때 제출되는 값.', default: "'on'" },
+        ],
+      },
+      {
+        name: 'Checkbox.Indicator',
+        description: '체크 또는 중간 상태일 때만 렌더되는 표시 영역. data-state="checked" | "indeterminate".',
+        props: [{ name: 'forceMount', type: 'boolean', description: '체크되지 않았어도 렌더한다.' }],
+      },
+    ],
+    keys: [
+      ['Space', '체크 상태를 전환한다. 중간 상태에서는 체크된다.'],
       ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
     ],
   },
