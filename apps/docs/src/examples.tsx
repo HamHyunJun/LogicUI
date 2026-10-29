@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Dialog, Menu, Popover, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -334,6 +334,42 @@ export function SwitchExample() {
         </Switch.Root>
         <label htmlFor="beta" className="text-sm font-medium text-zinc-500">
           베타 기능 (비활성)
+        </label>
+      </div>
+    </div>
+  );
+}
+
+export function CheckboxExample() {
+  const [items, setItems] = React.useState([true, false, false]);
+  const labels = ['이메일 알림', '푸시 알림', 'SMS 알림'];
+  const all = items.every(Boolean) ? true : items.some(Boolean) ? 'indeterminate' : false;
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex items-center gap-3">
+        <Checkbox.Root id="all" checked={all} onCheckedChange={(checked) => setItems(items.map(() => checked === true))} />
+        <label htmlFor="all" className="text-sm font-semibold">
+          모두 선택
+        </label>
+      </div>
+      <div className="ml-8 grid gap-3">
+        {labels.map((label, i) => (
+          <div key={label} className="flex items-center gap-3">
+            <Checkbox.Root
+              id={`item-${i}`}
+              checked={items[i] ?? false}
+              onCheckedChange={(checked) => setItems(items.map((v, j) => (j === i ? checked === true : v)))}
+            />
+            <label htmlFor={`item-${i}`} className="text-sm">
+              {label}
+            </label>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center gap-3">
+        <Checkbox.Root id="locked" disabled defaultChecked />
+        <label htmlFor="locked" className="text-sm text-zinc-500">
+          필수 약관 (비활성)
         </label>
       </div>
     </div>

@@ -103,6 +103,16 @@
         "default": "./dist/switch/index.cjs"
       }
     },
+    "./checkbox": {
+      "import": {
+        "types": "./dist/checkbox/index.d.ts",
+        "default": "./dist/checkbox/index.mjs"
+      },
+      "require": {
+        "types": "./dist/checkbox/index.d.cts",
+        "default": "./dist/checkbox/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -134,6 +144,9 @@
       ],
       "switch": [
         "./dist/switch/index.d.ts"
+      ],
+      "checkbox": [
+        "./dist/checkbox/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"
