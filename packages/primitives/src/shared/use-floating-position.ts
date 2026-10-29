@@ -23,7 +23,8 @@ export function useFloatingPosition(
       content.style.position = 'fixed';
       content.style.top = '0px';
       content.style.left = '0px';
-      const size = content.getBoundingClientRect();
+      // transform(진입 애니메이션의 scale 등)이 반영되지 않도록 레이아웃 크기로 잰다.
+      const size = { width: content.offsetWidth, height: content.offsetHeight };
       const viewport = { width: win.innerWidth, height: win.innerHeight };
       const next = computePosition(anchor.getBoundingClientRect(), size, viewport, { side, align, sideOffset });
       content.style.top = `${next.top}px`;
