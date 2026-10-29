@@ -1,9 +1,9 @@
-import { Popover as PopoverPrimitive, type PopoverContentProps } from '@logic-ui/primitives/popover';
+import { Popover as PopoverPrimitive, type PopoverContentProps } from '@logic-ui-kit/primitives/popover';
 import * as React from 'react';
 import { cn } from './cn';
 
 /*
- * @logic-ui/primitives의 Popover에 Tailwind 스타일만 입힌 레퍼런스 구현.
+ * @logic-ui-kit/primitives의 Popover에 Tailwind 스타일만 입힌 레퍼런스 구현.
  * 동작·접근성·위치 계산은 전부 프리미티브가 담당하고, 이 파일은 className만 다룬다.
  */
 
@@ -13,7 +13,7 @@ export {
   PopoverTrigger as Trigger,
   PopoverPortal as Portal,
   PopoverClose as Close,
-} from '@logic-ui/primitives/popover';
+} from '@logic-ui-kit/primitives/popover';
 
 // 프리미티브 내부 타입 경로에 의존하지 않도록 공개 Props 타입으로 명시한다.
 export const Content: React.ForwardRefExoticComponent<PopoverContentProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<

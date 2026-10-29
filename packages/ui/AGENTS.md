@@ -4,7 +4,7 @@
 **Generated:** 2026-10-29 · **Updated:** 2026-10-29
 
 ## Purpose
-`@logic-ui/ui`. `@logic-ui/primitives` 위에 Tailwind CSS 클래스만 입힌 레퍼런스 디자인 시스템. 동작·접근성은 전부 primitives가 담당하고 이 패키지는 `className`만 다룬다.
+`@logic-ui-kit/ui`. `@logic-ui-kit/primitives` 위에 Tailwind CSS 클래스만 입힌 레퍼런스 디자인 시스템. 동작·접근성은 전부 primitives가 담당하고 이 패키지는 `className`만 다룬다.
 
 ## Key Files
 | File | Description |
@@ -15,7 +15,7 @@
 | `src/button.tsx` | `primary`/`secondary`/`ghost` variant 버튼. `Dialog.Trigger asChild`와 함께 사용 |
 | `src/cn.ts` | `clsx` + `tailwind-merge` |
 | `src/dialog.test.tsx` | 스타일 래퍼 테스트 |
-| `tsup.config.ts` | ESM/CJS/d.ts. `@logic-ui/*`, `clsx`, `tailwind-merge`는 external |
+| `tsup.config.ts` | ESM/CJS/d.ts. `@logic-ui-kit/*`, `clsx`, `tailwind-merge`는 external |
 
 ## For AI Agents
 
@@ -28,12 +28,12 @@
 - 이 패키지는 CSS를 번들하지 않는다. 소비 앱이 Tailwind로 이 패키지 소스를 스캔해야 한다 (`apps/docs/src/index.css`의 `@source` 참고).
 
 ### Testing Requirements
-- `pnpm --filter @logic-ui/ui test` (jsdom). `primitives`가 먼저 빌드되어야 하며 turbo의 `^build` 의존으로 자동 처리된다.
+- `pnpm --filter @logic-ui-kit/ui test` (jsdom). `primitives`가 먼저 빌드되어야 하며 turbo의 `^build` 의존으로 자동 처리된다.
 
 ## Dependencies
 
 ### Internal
-- `@logic-ui/primitives` (`workspace:*`)
+- `@logic-ui-kit/primitives` (`workspace:*`)
 
 ### External
 - `clsx`, `tailwind-merge`, `react`/`react-dom` (peer)

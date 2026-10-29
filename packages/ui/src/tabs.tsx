@@ -3,17 +3,17 @@ import {
   type TabsContentProps,
   type TabsListProps,
   type TabsTriggerProps,
-} from '@logic-ui/primitives/tabs';
+} from '@logic-ui-kit/primitives/tabs';
 import * as React from 'react';
 import { cn } from './cn';
 
 /*
- * @logic-ui/primitives의 Tabs에 Tailwind 스타일만 입힌 레퍼런스 구현.
+ * @logic-ui-kit/primitives의 Tabs에 Tailwind 스타일만 입힌 레퍼런스 구현.
  * 동작·접근성은 전부 프리미티브가 담당하고, 이 파일은 className만 다룬다.
  */
 
 // 스타일이 필요 없는 파트는 프리미티브를 그대로 재노출한다.
-export { TabsRoot as Root } from '@logic-ui/primitives/tabs';
+export { TabsRoot as Root } from '@logic-ui-kit/primitives/tabs';
 
 // 프리미티브 내부 타입 경로에 의존하지 않도록 공개 Props 타입으로 명시한다.
 export const List: React.ForwardRefExoticComponent<TabsListProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<

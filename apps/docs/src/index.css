@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* @logic-ui/ui 컴포넌트 소스의 클래스도 Tailwind가 스캔하도록 등록한다. */
+/* @logic-ui-kit/ui 컴포넌트 소스의 클래스도 Tailwind가 스캔하도록 등록한다. */
 @source '../../../packages/ui/src';
 
 @custom-variant dark (&:where(.dark, .dark *));

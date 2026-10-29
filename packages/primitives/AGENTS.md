@@ -4,7 +4,7 @@
 **Generated:** 2026-10-29 · **Updated:** 2026-10-29
 
 ## Purpose
-`@logic-ui/primitives`. CSS 0%, 런타임 의존성 0의 헤드리스 로직 코어. 상태·포커스·키보드·ARIA만 담당하고 스타일링 훅은 `data-state="open" | "closed"`로만 노출한다. peerDependencies는 `react`, `react-dom`만 둔다.
+`@logic-ui-kit/primitives`. CSS 0%, 런타임 의존성 0의 헤드리스 로직 코어. 상태·포커스·키보드·ARIA만 담당하고 스타일링 훅은 `data-state="open" | "closed"`로만 노출한다. peerDependencies는 `react`, `react-dom`만 둔다.
 
 ## Key Files
 | File | Description |
@@ -55,7 +55,7 @@
 - 파트를 Root 밖에서 쓰면 `<X.Part>은(는) <X.Root> 안에서만 사용할 수 있습니다.` 에러를 던진다.
 
 ### Testing Requirements
-- `pnpm --filter @logic-ui/primitives test` (Vitest + Testing Library + user-event + vitest-axe, jsdom).
+- `pnpm --filter @logic-ui-kit/primitives test` (Vitest + Testing Library + user-event + vitest-axe, jsdom).
 - 역할·접근 가능한 이름으로 요소를 찾고 `userEvent.setup()`을 쓴다. 테스트를 `skip`/`todo`로 우회하지 않는다.
 - `exports`를 바꾸면 `npx @arethetypeswrong/cli --pack packages/primitives`로 타입 해석을 확인한다.
 

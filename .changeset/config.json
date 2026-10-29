@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@logic-ui/docs"]
+  "ignore": ["@logic-ui-kit/docs"]
 }
