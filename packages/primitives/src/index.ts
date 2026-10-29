@@ -13,5 +13,6 @@ export * from './breadcrumb';
 export * from './slider';
 export * from './alert-dialog';
 export * from './toast';
+export * from './select';
 export { Slot } from './shared/slot';
 export type { AsChildProps } from './shared/primitive';

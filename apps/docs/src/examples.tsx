@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, Toast, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Select, Slider, Switch, Tabs, Toast, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -620,5 +620,95 @@ export function ToastExample() {
       ))}
       <Toast.Viewport />
     </Toast.Provider>
+  );
+}
+
+export function SelectExample() {
+  const [fruit, setFruit] = React.useState<string | undefined>(undefined);
+  const fruits = [
+    ['apple', 'Apple'],
+    ['banana', 'Banana'],
+    ['blueberry', 'Blueberry'],
+    ['cherry', 'Cherry'],
+    ['grape', 'Grape'],
+    ['mango', 'Mango'],
+  ] as const;
+  return (
+    <div className="grid gap-5 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid gap-2">
+        <span id="fruit-label" className="text-sm font-medium">
+          과일
+        </span>
+        <div className="flex flex-wrap items-center gap-4">
+          <Select.Root value={fruit} onValueChange={setFruit}>
+            <Select.Trigger aria-labelledby="fruit-label">
+              <Select.Value placeholder="선택하세요" />
+            </Select.Trigger>
+            <Select.Portal>
+              <Select.Content>
+                {fruits.map(([value, label]) => (
+                  <Select.Item key={value} value={value} disabled={value === 'blueberry'}>
+                    {label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
+          <span className="text-sm text-zinc-500">
+            선택: <code className="font-mono">{fruit ?? '없음'}</code>
+          </span>
+        </div>
+      </div>
+      <div className="grid gap-2">
+        <span id="locked-select-label" className="text-sm font-medium text-zinc-500">
+          비활성
+        </span>
+        <Select.Root disabled defaultValue="apple">
+          <Select.Trigger aria-labelledby="locked-select-label">
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content>
+              <Select.Item value="apple">Apple</Select.Item>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
+      </div>
+      <div className="grid gap-2">
+        <span className="text-sm font-medium">Dialog 안에서</span>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <Button variant="secondary" className="w-fit">
+              설정 열기
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Overlay />
+            <Dialog.Content>
+              <Dialog.Header>
+                <Dialog.Title>정렬 설정</Dialog.Title>
+                <Dialog.Description>목록이 열린 상태에서 Esc를 누르면 목록만 먼저 닫힙니다.</Dialog.Description>
+              </Dialog.Header>
+              <Select.Root defaultValue="name">
+                <Select.Trigger aria-label="정렬 기준">
+                  <Select.Value />
+                </Select.Trigger>
+                <Select.Portal>
+                  <Select.Content className="z-[60]">
+                    <Select.Item value="name">이름순</Select.Item>
+                    <Select.Item value="date">날짜순</Select.Item>
+                  </Select.Content>
+                </Select.Portal>
+              </Select.Root>
+              <Dialog.Footer>
+                <Dialog.Close asChild>
+                  <Button>닫기</Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+      </div>
+    </div>
   );
 }

@@ -11,12 +11,14 @@ export function useFloatingPosition(
   anchorRef: React.RefObject<HTMLElement | null>,
   contentRef: React.RefObject<HTMLElement | null>,
   { side, align, sideOffset }: PositionOptions,
+  /** false면 계산도 이벤트 구독도 하지 않는다(숨겨 둔 채 마운트하는 content용). 기본값 true. */
+  enabled = true,
 ): void {
   useIsomorphicLayoutEffect(() => {
     const content = contentRef.current;
     const anchor = anchorRef.current;
     const win = content?.ownerDocument.defaultView;
-    if (!content || !anchor || !win) return;
+    if (!enabled || !content || !anchor || !win) return;
 
     const update = (): void => {
       // 이전 위치가 크기 측정(줄바꿈)에 영향을 주지 않도록 원점에서 잰다.
@@ -39,5 +41,5 @@ export function useFloatingPosition(
       win.removeEventListener('resize', update);
       content.ownerDocument.removeEventListener('scroll', update, true);
     };
-  }, [anchorRef, contentRef, side, align, sideOffset]);
+  }, [anchorRef, contentRef, side, align, sideOffset, enabled]);
 }

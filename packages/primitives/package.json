@@ -183,6 +183,16 @@
         "default": "./dist/toast/index.cjs"
       }
     },
+    "./select": {
+      "import": {
+        "types": "./dist/select/index.d.ts",
+        "default": "./dist/select/index.mjs"
+      },
+      "require": {
+        "types": "./dist/select/index.d.cts",
+        "default": "./dist/select/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -238,6 +248,9 @@
       ],
       "toast": [
         "./dist/toast/index.d.ts"
+      ],
+      "select": [
+        "./dist/select/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"
