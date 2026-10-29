@@ -14,6 +14,7 @@ import {
   RadioGroupExample,
   ProgressExample,
   ToggleGroupExample,
+  BreadcrumbExample,
 } from './examples';
 
 export interface DocPage {
@@ -572,6 +573,36 @@ export const PAGES: DocPage[] = [
       ['↓ / ↑', 'vertical에서 다음/이전 항목으로 포커스를 옮긴다.'],
       ['Home / End', '첫/마지막 활성 항목으로 포커스를 옮긴다.'],
       ['Space / Enter', '포커스된 항목을 켜거나 끈다.'],
+    ],
+  },
+  {
+    slug: 'breadcrumb',
+    title: 'Breadcrumb',
+    summary: '현재 페이지까지의 경로를 보여 주는 내비게이션입니다. nav landmark 안의 순서 있는 목록이고, 현재 페이지에 aria-current="page"를 붙입니다.',
+    apg: { label: 'Breadcrumb', href: `${APG}/breadcrumb/` },
+    examples: [{ title: '예제', description: 'Tab은 링크만 지나가고 현재 페이지와 구분자는 건너뜁니다.', node: <BreadcrumbExample /> }],
+    code: `import { Breadcrumb } from '@logic-ui-kit/primitives/breadcrumb';
+
+<Breadcrumb.Root aria-label="현재 위치">
+  <Breadcrumb.List>
+    <Breadcrumb.Item><Breadcrumb.Link href="/">홈</Breadcrumb.Link></Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item><Breadcrumb.Link href="/docs">문서</Breadcrumb.Link></Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item><Breadcrumb.Page>메뉴</Breadcrumb.Page></Breadcrumb.Item>
+  </Breadcrumb.List>
+</Breadcrumb.Root>`,
+    parts: [
+      { name: 'Breadcrumb.Root', description: 'nav landmark. 기본 aria-label은 "Breadcrumb"이며 문서 언어에 맞게 바꾼다.' },
+      { name: 'Breadcrumb.List', description: '순서 있는 목록(ol).' },
+      { name: 'Breadcrumb.Item', description: '목록 항목(li).' },
+      { name: 'Breadcrumb.Link', description: '상위 페이지로 가는 링크(a). 라우터의 Link를 쓰려면 asChild로 넘긴다.' },
+      { name: 'Breadcrumb.Page', description: '현재 페이지. role="link", aria-disabled="true", aria-current="page".' },
+      { name: 'Breadcrumb.Separator', description: '항목 사이 구분자(li). 장식이라 aria-hidden이며 기본 내용은 "/"다.' },
+    ],
+    keys: [
+      ['Tab / Shift + Tab', '상위 경로 링크 사이를 이동한다. 현재 페이지와 구분자는 포커스를 받지 않는다.'],
+      ['Enter', '포커스된 링크로 이동한다.'],
     ],
   },
 ];
