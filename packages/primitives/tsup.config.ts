@@ -7,6 +7,7 @@ export default defineConfig({
     'accordion/index': 'src/accordion/index.ts',
     'dialog/index': 'src/dialog/index.ts',
     'popover/index': 'src/popover/index.ts',
+    'tooltip/index': 'src/tooltip/index.ts',
     'tabs/index': 'src/tabs/index.ts',
   },
   format: ['esm', 'cjs'],
