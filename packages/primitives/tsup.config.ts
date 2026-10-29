@@ -15,6 +15,7 @@ export default defineConfig({
     'radio-group/index': 'src/radio-group/index.ts',
     'progress/index': 'src/progress/index.ts',
     'toggle-group/index': 'src/toggle-group/index.ts',
+    'breadcrumb/index': 'src/breadcrumb/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

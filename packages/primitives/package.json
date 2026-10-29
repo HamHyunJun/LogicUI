@@ -143,6 +143,16 @@
         "default": "./dist/toggle-group/index.cjs"
       }
     },
+    "./breadcrumb": {
+      "import": {
+        "types": "./dist/breadcrumb/index.d.ts",
+        "default": "./dist/breadcrumb/index.mjs"
+      },
+      "require": {
+        "types": "./dist/breadcrumb/index.d.cts",
+        "default": "./dist/breadcrumb/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -186,6 +196,9 @@
       ],
       "toggle-group": [
         "./dist/toggle-group/index.d.ts"
+      ],
+      "breadcrumb": [
+        "./dist/breadcrumb/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

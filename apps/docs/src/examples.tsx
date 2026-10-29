@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -464,6 +464,39 @@ export function ToggleGroupExample() {
       <p className="text-sm text-zinc-500">
         정렬 <code className="font-mono">{align.join(',') || '없음'}</code> · 서식 <code className="font-mono">{format.join(',') || '없음'}</code>
       </p>
+    </div>
+  );
+}
+
+export function BreadcrumbExample() {
+  return (
+    <div className="grid gap-5 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <Breadcrumb.Root aria-label="현재 위치">
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link href="#/">소개</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.Item>
+            <Breadcrumb.Link href="#/menu">Menu</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.Item>
+            <Breadcrumb.Page>Breadcrumb</Breadcrumb.Page>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
+      <Breadcrumb.Root aria-label="다른 구분자">
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link href="#/">소개</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator>›</Breadcrumb.Separator>
+          <Breadcrumb.Item>
+            <Breadcrumb.Page>구분자를 바꾼 예</Breadcrumb.Page>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
     </div>
   );
 }

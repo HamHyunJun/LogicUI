@@ -9,5 +9,6 @@ export * from './checkbox';
 export * from './radio-group';
 export * from './progress';
 export * from './toggle-group';
+export * from './breadcrumb';
 export { Slot } from './shared/slot';
 export type { AsChildProps } from './shared/primitive';
