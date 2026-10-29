@@ -16,15 +16,15 @@
 | `turbo.json` | 태스크 그래프. `test`/`typecheck`/`dev`는 `^build`에 의존 |
 | `pnpm-workspace.yaml` | `packages/*`, `apps/*` |
 | `tsconfig.base.json` | `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax` |
-| `vercel.json` | 데모 배포: `turbo --filter=@logic-ui/docs` 빌드 → `apps/docs/dist` |
-| `.changeset/` | 변경 기록. `@logic-ui/docs`는 ignore |
+| `vercel.json` | 데모 배포: `turbo --filter=@logic-ui-kit/docs` 빌드 → `apps/docs/dist` |
+| `.changeset/` | 변경 기록. `@logic-ui-kit/docs`는 ignore |
 | `.github/workflows/` | `ci.yml`(Node 22/24: typecheck·test·build), `release.yml`(Changesets 릴리스) |
 
 ## Subdirectories
 | Directory | Purpose |
 |-----------|---------|
-| `packages/primitives/` | `@logic-ui/primitives` 헤드리스 로직 코어 (see `packages/primitives/AGENTS.md`) |
-| `packages/ui/` | `@logic-ui/ui` Tailwind 레퍼런스 디자인 시스템 (see `packages/ui/AGENTS.md`) |
+| `packages/primitives/` | `@logic-ui-kit/primitives` 헤드리스 로직 코어 (see `packages/primitives/AGENTS.md`) |
+| `packages/ui/` | `@logic-ui-kit/ui` Tailwind 레퍼런스 디자인 시스템 (see `packages/ui/AGENTS.md`) |
 | `apps/docs/` | Vite 데모/플레이그라운드 (see `apps/docs/AGENTS.md`) |
 
 ## For AI Agents
@@ -39,7 +39,7 @@
 ```bash
 pnpm install        # Node 22.22+, pnpm 10 (corepack enable)
 pnpm typecheck && pnpm test && pnpm build   # 작업 완료 전 모두 통과해야 함
-pnpm --filter @logic-ui/primitives test     # 패키지 하나만
+pnpm --filter @logic-ui-kit/primitives test     # 패키지 하나만
 ```
 
 ### Common Patterns

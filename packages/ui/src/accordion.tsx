@@ -3,17 +3,17 @@ import {
   type AccordionContentProps,
   type AccordionItemProps,
   type AccordionTriggerProps,
-} from '@logic-ui/primitives/accordion';
+} from '@logic-ui-kit/primitives/accordion';
 import * as React from 'react';
 import { cn } from './cn';
 
 /*
- * @logic-ui/primitives의 Accordion에 Tailwind 스타일만 입힌 레퍼런스 구현.
+ * @logic-ui-kit/primitives의 Accordion에 Tailwind 스타일만 입힌 레퍼런스 구현.
  * 동작·접근성은 전부 프리미티브가 담당하고, 이 파일은 className만 다룬다.
  */
 
 // 스타일이 필요 없는 파트는 프리미티브를 그대로 재노출한다.
-export { AccordionRoot as Root, AccordionHeader as Header } from '@logic-ui/primitives/accordion';
+export { AccordionRoot as Root, AccordionHeader as Header } from '@logic-ui-kit/primitives/accordion';
 
 // 프리미티브 내부 타입 경로에 의존하지 않도록 공개 Props 타입으로 명시한다.
 export const Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<

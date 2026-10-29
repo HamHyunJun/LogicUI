@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm turbo run build --filter=@logic-ui/docs",
+  "buildCommand": "pnpm turbo run build --filter=@logic-ui-kit/docs",
   "outputDirectory": "apps/docs/dist"
 }

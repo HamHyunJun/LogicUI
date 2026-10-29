@@ -10,5 +10,5 @@ export default defineConfig({
   treeshake: true,
   target: 'es2020',
   // 의존 패키지는 번들에 포함하지 않는다.
-  external: ['react', 'react-dom', 'react/jsx-runtime', /^@logic-ui\//, 'clsx', 'tailwind-merge'],
+  external: ['react', 'react-dom', 'react/jsx-runtime', /^@logic-ui-kit\//, 'clsx', 'tailwind-merge'],
 });

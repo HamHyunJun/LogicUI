@@ -4,12 +4,12 @@ import {
   type DialogDescriptionProps,
   type DialogOverlayProps,
   type DialogTitleProps,
-} from '@logic-ui/primitives/dialog';
+} from '@logic-ui-kit/primitives/dialog';
 import * as React from 'react';
 import { cn } from './cn';
 
 /*
- * @logic-ui/primitives의 Dialog에 Tailwind 스타일만 입힌 레퍼런스 구현.
+ * @logic-ui-kit/primitives의 Dialog에 Tailwind 스타일만 입힌 레퍼런스 구현.
  * 동작·접근성은 전부 프리미티브가 담당하고, 이 파일은 className만 다룬다.
  * 진입 애니메이션은 Tailwind v4의 starting: 변형(@starting-style)으로 처리한다.
  */
@@ -20,7 +20,7 @@ export {
   DialogTrigger as Trigger,
   DialogPortal as Portal,
   DialogClose as Close,
-} from '@logic-ui/primitives/dialog';
+} from '@logic-ui-kit/primitives/dialog';
 
 // 프리미티브 내부 타입 경로에 의존하지 않도록 공개 Props 타입으로 명시한다.
 export const Overlay: React.ForwardRefExoticComponent<DialogOverlayProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<

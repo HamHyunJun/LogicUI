@@ -4,7 +4,7 @@
 **Generated:** 2026-10-29 · **Updated:** 2026-10-29
 
 ## Purpose
-`@logic-ui/docs`. Vite + React 데모/플레이그라운드 (private, npm 배포 대상 아님). Vercel에 정적 배포되어 https://logicui.vercel.app 으로 공개된다.
+`@logic-ui-kit/docs`. Vite + React 데모/플레이그라운드 (private, npm 배포 대상 아님). Vercel에 정적 배포되어 https://logicui.vercel.app 으로 공개된다.
 
 ## Key Files
 | File | Description |
@@ -20,18 +20,18 @@
 
 ### Working In This Directory
 - 새 컴포넌트를 추가하면 여기에 예제 섹션을 함께 추가한다 (`CLAUDE.md` 체크리스트 6번).
-- `@logic-ui/ui`의 클래스를 Tailwind가 스캔하도록 `index.css`의 `@source`를 유지한다.
+- `@logic-ui-kit/ui`의 클래스를 Tailwind가 스캔하도록 `index.css`의 `@source`를 유지한다.
 - 워크스페이스 패키지는 빌드 산출물(`dist`)을 쓰므로 단독 실행 전에 `primitives`/`ui` 빌드가 필요하다. 루트 `pnpm dev`가 이를 처리한다.
 - `main`에 머지되면 Vercel production이 재배포된다. 빌드는 루트 `vercel.json` 기준이며 이 디렉터리를 Root Directory로 지정하지 않는다.
 - changeset 대상이 아니다 (`.changeset/config.json`의 `ignore`).
 
 ### Testing Requirements
-- 자동 테스트 없음. `pnpm --filter @logic-ui/docs typecheck`와 `pnpm build`로 검증하고, jsdom에서 확인할 수 없는 포커스·클릭 순서 변경은 빌드 후 Playwright로 실제 브라우저에서 확인한다.
+- 자동 테스트 없음. `pnpm --filter @logic-ui-kit/docs typecheck`와 `pnpm build`로 검증하고, jsdom에서 확인할 수 없는 포커스·클릭 순서 변경은 빌드 후 Playwright로 실제 브라우저에서 확인한다.
 
 ## Dependencies
 
 ### Internal
-- `@logic-ui/primitives`, `@logic-ui/ui` (`workspace:*`)
+- `@logic-ui-kit/primitives`, `@logic-ui-kit/ui` (`workspace:*`)
 
 ### External
 - `react`, `react-dom`, `vite`, `tailwindcss` v4, `@tailwindcss/vite`

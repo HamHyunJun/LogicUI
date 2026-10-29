@@ -12,8 +12,8 @@
 
 | 경로 | 역할 |
 | --- | --- |
-| `packages/primitives` | `@logic-ui/primitives`. 순수 헤드리스 로직 코어 |
-| `packages/ui` | `@logic-ui/ui`. primitives에 Tailwind 클래스만 입힌 레퍼런스 디자인 시스템 |
+| `packages/primitives` | `@logic-ui-kit/primitives`. 순수 헤드리스 로직 코어 |
+| `packages/ui` | `@logic-ui-kit/ui`. primitives에 Tailwind 클래스만 입힌 레퍼런스 디자인 시스템 |
 | `apps/docs` | Vite + React 플레이그라운드 (배포 대상 아님) |
 
 의존 방향은 `docs → ui → primitives` 한 방향뿐이다. primitives는 다른 워크스페이스 패키지를 import하지 않는다.
@@ -26,7 +26,7 @@ pnpm dev            # 패키지 빌드 후 docs 실행
 pnpm test           # 전체 테스트
 pnpm typecheck      # 전체 타입 검사
 pnpm build          # 전체 빌드
-pnpm --filter @logic-ui/primitives test   # 패키지 하나만
+pnpm --filter @logic-ui-kit/primitives test   # 패키지 하나만
 ```
 
 작업을 마치기 전에 `pnpm typecheck && pnpm test && pnpm build`가 모두 통과해야 한다.

@@ -1,7 +1,7 @@
 {
-  "name": "@logic-ui/ui",
+  "name": "@logic-ui-kit/ui",
   "version": "0.0.0",
-  "description": "@logic-ui/primitives 위에 Tailwind CSS로 스타일을 입힌 레퍼런스 디자인 시스템",
+  "description": "@logic-ui-kit/primitives 위에 Tailwind CSS로 스타일을 입힌 레퍼런스 디자인 시스템",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@logic-ui/primitives": "workspace:*",
+    "@logic-ui-kit/primitives": "workspace:*",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0"
   },

@@ -1,5 +1,5 @@
-import { Dialog as Headless } from '@logic-ui/primitives/dialog';
-import { Accordion, Button, Dialog, Popover, Tabs, Tooltip } from '@logic-ui/ui';
+import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
+import { Accordion, Button, Dialog, Popover, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 
 export function App() {
@@ -8,7 +8,7 @@ export function App() {
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <header className="mb-12 flex items-start justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-zinc-500">@logic-ui/primitives</p>
+            <p className="text-sm font-medium text-zinc-500">@logic-ui-kit/primitives</p>
             <h1 className="mt-1 text-3xl font-bold tracking-tight">LogicUI</h1>
             <p className="mt-3 text-zinc-600 dark:text-zinc-400">
               CSS 없이 동작, WAI-ARIA, 키보드 인터랙션만 제공하는 헤드리스 UI 라이브러리입니다.

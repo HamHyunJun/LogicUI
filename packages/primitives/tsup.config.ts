@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  // 서브패스 export(@logic-ui/primitives/dialog)마다 엔트리를 둔다.
+  // 서브패스 export(@logic-ui-kit/primitives/dialog)마다 엔트리를 둔다.
   entry: {
     index: 'src/index.ts',
     'accordion/index': 'src/accordion/index.ts',

@@ -20,10 +20,10 @@ importers:
 
   apps/docs:
     dependencies:
-      '@logic-ui/primitives':
+      '@logic-ui-kit/primitives':
         specifier: workspace:*
         version: link:../../packages/primitives
-      '@logic-ui/ui':
+      '@logic-ui-kit/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       react:
@@ -96,7 +96,7 @@ importers:
 
   packages/ui:
     dependencies:
-      '@logic-ui/primitives':
+      '@logic-ui-kit/primitives':
         specifier: workspace:*
         version: link:../primitives
       clsx:

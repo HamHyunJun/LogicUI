@@ -1,5 +1,5 @@
 {
-  "name": "@logic-ui/docs",
+  "name": "@logic-ui-kit/docs",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@logic-ui/primitives": "workspace:*",
-    "@logic-ui/ui": "workspace:*",
+    "@logic-ui-kit/primitives": "workspace:*",
+    "@logic-ui-kit/ui": "workspace:*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
