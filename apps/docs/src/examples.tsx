@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -434,6 +434,36 @@ export function ProgressExample() {
           <Progress.Indicator />
         </Progress.Root>
       </div>
+    </div>
+  );
+}
+
+export function ToggleGroupExample() {
+  const [align, setAlign] = React.useState<string[]>(['left']);
+  const [format, setFormat] = React.useState<string[]>(['bold']);
+  return (
+    <div className="grid gap-5 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid gap-2">
+        <span className="text-sm font-medium">정렬 (single)</span>
+        <ToggleGroup.Root aria-label="정렬" type="single" value={align} onValueChange={setAlign}>
+          <ToggleGroup.Item value="left">왼쪽</ToggleGroup.Item>
+          <ToggleGroup.Item value="center">가운데</ToggleGroup.Item>
+          <ToggleGroup.Item value="right">오른쪽</ToggleGroup.Item>
+        </ToggleGroup.Root>
+      </div>
+      <div className="grid gap-2">
+        <span className="text-sm font-medium">서식 (multiple)</span>
+        <ToggleGroup.Root aria-label="서식" type="multiple" value={format} onValueChange={setFormat}>
+          <ToggleGroup.Item value="bold">굵게</ToggleGroup.Item>
+          <ToggleGroup.Item value="italic">기울임</ToggleGroup.Item>
+          <ToggleGroup.Item value="underline" disabled>
+            밑줄
+          </ToggleGroup.Item>
+        </ToggleGroup.Root>
+      </div>
+      <p className="text-sm text-zinc-500">
+        정렬 <code className="font-mono">{align.join(',') || '없음'}</code> · 서식 <code className="font-mono">{format.join(',') || '없음'}</code>
+      </p>
     </div>
   );
 }

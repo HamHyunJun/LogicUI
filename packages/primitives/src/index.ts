@@ -8,5 +8,6 @@ export * from './switch';
 export * from './checkbox';
 export * from './radio-group';
 export * from './progress';
+export * from './toggle-group';
 export { Slot } from './shared/slot';
 export type { AsChildProps } from './shared/primitive';

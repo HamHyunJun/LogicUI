@@ -13,6 +13,7 @@ import {
   CheckboxExample,
   RadioGroupExample,
   ProgressExample,
+  ToggleGroupExample,
 } from './examples';
 
 export interface DocPage {
@@ -529,5 +530,48 @@ export const PAGES: DocPage[] = [
       { name: 'Progress.Indicator', description: '진행 정도를 그리는 요소. data-value, data-max, data-state를 보고 너비 등을 스타일링한다.' },
     ],
     keys: [['—', '키보드 상호작용이 없는 표시 컴포넌트입니다. 포커스를 받지 않습니다.']],
+  },
+  {
+    slug: 'toggle-group',
+    title: 'Toggle Group',
+    summary: '켜고 끌 수 있는 버튼 묶음입니다. 한 번에 하나(single)나 여러 개(multiple)를 켤 수 있고, 그룹 전체가 Tab 정지점 하나입니다.',
+    apg: { label: 'Button (toggle)', href: `${APG}/button/` },
+    examples: [{ title: '예제', description: 'Tab으로 그룹에 들어간 뒤 방향키로 이동하고 Space/Enter로 켜고 끄세요. 방향키는 선택하지 않고 포커스만 옮깁니다.', node: <ToggleGroupExample /> }],
+    code: `import { ToggleGroup } from '@logic-ui-kit/primitives/toggle-group';
+
+<ToggleGroup.Root aria-label="서식" type="multiple" value={format} onValueChange={setFormat}>
+  <ToggleGroup.Item value="bold">굵게</ToggleGroup.Item>
+  <ToggleGroup.Item value="italic">기울임</ToggleGroup.Item>
+</ToggleGroup.Root>`,
+    parts: [
+      {
+        name: 'ToggleGroup.Root',
+        description: 'role="group". aria-label 또는 aria-labelledby로 이름을 붙인다.',
+        props: [
+          { name: 'type', type: "'single' | 'multiple'", description: 'single은 한 번에 하나만, multiple은 여러 개를 켤 수 있다. single에서 켜진 항목을 다시 누르면 꺼진다.', default: "'single'" },
+          { name: 'value', type: 'string[]', description: '제어 모드의 켜진 항목 값 목록. single에서도 배열(최대 1개)이다.' },
+          { name: 'defaultValue', type: 'string[]', description: '비제어 모드의 초기 켜진 항목 값 목록.' },
+          { name: 'onValueChange', type: '(value: string[]) => void', description: '켜진 항목이 바뀌어야 할 때 호출된다.' },
+          { name: 'disabled', type: 'boolean', description: '모든 항목을 비활성화한다.' },
+          { name: 'orientation', type: "'horizontal' | 'vertical'", description: '방향키 축. horizontal은 ←/→, vertical은 ↑/↓.', default: "'horizontal'" },
+          { name: 'loop', type: 'boolean', description: '양 끝에서 반대편으로 순환한다.', default: 'true' },
+        ],
+      },
+      {
+        name: 'ToggleGroup.Item',
+        description: 'aria-pressed인 button. data-state="on" | "off". 마지막으로 포커스한 항목(처음에는 켜진 첫 항목)이 tabindex=0이다.',
+        props: [
+          { name: 'value', type: 'string', description: '이 항목을 식별하는 값.' },
+          { name: 'disabled', type: 'boolean', description: '이 항목만 비활성화한다. 방향키 이동에서 건너뛴다.' },
+        ],
+      },
+    ],
+    keys: [
+      ['Tab / Shift + Tab', '그룹의 탭 정지점(처음에는 켜진 첫 항목)에 포커스하고 그룹을 벗어난다.'],
+      ['→ / ←', 'horizontal에서 다음/이전 항목으로 포커스를 옮긴다(선택하지 않음). 끝에서는 순환한다.'],
+      ['↓ / ↑', 'vertical에서 다음/이전 항목으로 포커스를 옮긴다.'],
+      ['Home / End', '첫/마지막 활성 항목으로 포커스를 옮긴다.'],
+      ['Space / Enter', '포커스된 항목을 켜거나 끈다.'],
+    ],
   },
 ];

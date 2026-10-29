@@ -133,6 +133,16 @@
         "default": "./dist/progress/index.cjs"
       }
     },
+    "./toggle-group": {
+      "import": {
+        "types": "./dist/toggle-group/index.d.ts",
+        "default": "./dist/toggle-group/index.mjs"
+      },
+      "require": {
+        "types": "./dist/toggle-group/index.d.cts",
+        "default": "./dist/toggle-group/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -173,6 +183,9 @@
       ],
       "progress": [
         "./dist/progress/index.d.ts"
+      ],
+      "toggle-group": [
+        "./dist/toggle-group/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"
