@@ -9,3 +9,4 @@ export type {
   PopoverPointerDownOutsideEvent,
   PopoverFocusOutsideEvent,
 } from './popover';
+export type { Side, Align } from '../shared/position';
