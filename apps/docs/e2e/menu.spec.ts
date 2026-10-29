@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/menu');
 });
 
 test('Menu: 키보드로 열고, 비활성 항목을 건너뛰며 이동하고, Enter로 선택하면 닫히고 포커스가 돌아온다', async ({ page }) => {

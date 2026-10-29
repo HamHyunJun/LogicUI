@@ -1,10 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/');
-});
-
 test('Tabs: 방향키는 비활성 탭을 건너뛰고 Home은 첫 탭으로 이동한다', async ({ page }) => {
+  await page.goto('/#/tabs');
   const profile = page.getByRole('tab', { name: '프로필' });
   const security = page.getByRole('tab', { name: '보안' });
   await profile.click();
@@ -18,6 +15,7 @@ test('Tabs: 방향키는 비활성 탭을 건너뛰고 Home은 첫 탭으로 이
 });
 
 test('Accordion: 클릭으로 aria-expanded가 토글되고 ArrowDown은 다음 트리거로 이동한다', async ({ page }) => {
+  await page.goto('/#/accordion');
   const first = page.getByRole('button', { name: '헤드리스 UI란?' });
   await first.click();
   const expanded = await first.getAttribute('aria-expanded');

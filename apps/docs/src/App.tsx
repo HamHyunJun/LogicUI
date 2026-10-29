@@ -1,423 +1,221 @@
-import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Dialog, Menu, Popover, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Button } from '@logic-ui-kit/ui';
 import * as React from 'react';
+import { ApiTable, CodeBlock, KeyTable, Section } from './doc-ui';
+import { PAGES, type DocPage } from './pages';
+
+const SITE = 'LogicUI';
+
+// 정적 호스팅에서 서버 리라이트 없이 동작하도록 해시(#/dialog)로 라우팅한다.
+const readSlug = (): string => window.location.hash.replace(/^#\/?/, '');
+
+function useSlug(): string {
+  const [slug, setSlug] = React.useState(readSlug);
+  React.useEffect(() => {
+    const onHashChange = (): void => setSlug(readSlug());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+  return slug;
+}
 
 export function App() {
+  const slug = useSlug();
+  const page = PAGES.find((p) => p.slug === slug);
+  const mainRef = React.useRef<HTMLElement | null>(null);
+  const headingRef = React.useRef<HTMLHeadingElement | null>(null);
+  const isFirstRender = React.useRef(true);
+
+  const title = page ? `${page.title} · ${SITE}` : `${SITE} 문서`;
+  React.useEffect(() => {
+    document.title = title;
+    // 첫 로드는 건드리지 않고, 이후 페이지 이동에서만 제목으로 포커스를 옮겨 스크린리더에 알린다.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    window.scrollTo(0, 0);
+    headingRef.current?.focus({ preventScroll: true });
+  }, [title]);
+
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <header className="mb-12 flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-medium text-zinc-500">@logic-ui-kit/primitives</p>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight">LogicUI</h1>
-            <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-              CSS 없이 동작, WAI-ARIA, 키보드 인터랙션만 제공하는 헤드리스 UI 라이브러리입니다.
-            </p>
-          </div>
+      <button
+        type="button"
+        onClick={() => mainRef.current?.focus()}
+        className="sr-only z-50 rounded-lg bg-white px-3 py-2 text-sm focus:not-sr-only focus:fixed focus:top-2 focus:left-2 dark:bg-zinc-900"
+      >
+        본문으로 건너뛰기
+      </button>
+
+      <header className="border-b border-zinc-200 dark:border-zinc-800">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+          <a href="#/" className="text-lg font-bold tracking-tight">
+            {SITE}
+          </a>
           <ThemeToggle />
-        </header>
+        </div>
+      </header>
 
-        <Section title="Dialog" description="WAI-ARIA APG의 Modal Dialog 패턴을 따르는 합성 컴포넌트입니다.">
-          <Playground />
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:gap-10">
+        <nav aria-label="컴포넌트" className="mb-8 md:sticky md:top-8 md:mb-0 md:self-start">
+          <ul className="flex flex-wrap gap-1 md:flex-col">
+            <NavLink href="#/" current={!page}>
+              소개
+            </NavLink>
+            {PAGES.map((p) => (
+              <NavLink key={p.slug} href={`#/${p.slug}`} current={p.slug === slug}>
+                {p.title}
+              </NavLink>
+            ))}
+          </ul>
+        </nav>
+
+        <main id="main" ref={mainRef} tabIndex={-1} className="min-w-0 outline-none">
+          {page ? <ComponentPage page={page} headingRef={headingRef} /> : <Overview headingRef={headingRef} />}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function NavLink({ href, current, children }: { href: string; current: boolean; children: React.ReactNode }) {
+  return (
+    <li>
+      <a
+        href={href}
+        aria-current={current ? 'page' : undefined}
+        className="block rounded-lg px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 aria-[current=page]:bg-zinc-200 aria-[current=page]:font-semibold aria-[current=page]:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-50 dark:aria-[current=page]:bg-zinc-800 dark:aria-[current=page]:text-zinc-50"
+      >
+        {children}
+      </a>
+    </li>
+  );
+}
+
+type HeadingRef = React.RefObject<HTMLHeadingElement | null>;
+
+function Overview({ headingRef }: { headingRef: HeadingRef }) {
+  return (
+    <>
+      <h1 ref={headingRef} tabIndex={-1} className="text-3xl font-bold tracking-tight outline-none">
+        LogicUI
+      </h1>
+      <p className="mt-3 text-zinc-600 dark:text-zinc-400">
+        CSS 없이 동작, WAI-ARIA 접근성, 키보드 인터랙션만 제공하는 헤드리스 React UI 라이브러리입니다.
+      </p>
+
+      <div className="mt-8">
+        <Section title="설치">
+          <CodeBlock
+            label="설치 명령"
+            code={`pnpm add @logic-ui-kit/primitives   # 스타일 없는 헤드리스 컴포넌트
+pnpm add @logic-ui-kit/ui           # Tailwind 스타일 버전 (primitives 포함)`}
+          />
         </Section>
 
-        <Section title="스타일 없는 원본" description="primitives만 쓰고 클래스는 직접 지정한 예시입니다. 동작은 동일합니다.">
-          <HeadlessExample />
+        <Section title="특징">
+          <ul className="grid gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+            <li>
+              <strong>CSS 0%, 런타임 의존성 0.</strong> <code className="font-mono">react</code>와 <code className="font-mono">react-dom</code>만 peer로
+              둡니다. 스타일링은 <code className="font-mono">data-state</code> 같은 data 속성으로 합니다.
+            </li>
+            <li>
+              <strong>WAI-ARIA APG 패턴.</strong> 각 패턴의 역할·속성·키보드 표를 테스트로 옮겨 검증합니다.
+            </li>
+            <li>
+              <strong>합성 컴포넌트.</strong> Root + 하위 파트, 제어·비제어 상태, <code className="font-mono">asChild</code>, 취소 가능한 콜백.
+            </li>
+            <li>
+              <strong>스타일 버전 제공.</strong> <code className="font-mono">@logic-ui-kit/ui</code>는 같은 동작에 Tailwind v4 클래스만 입힌 레퍼런스입니다.
+            </li>
+          </ul>
         </Section>
 
-        <Section title="중첩 다이얼로그" description="Esc와 바깥 클릭은 가장 위의 다이얼로그에만 적용됩니다.">
-          <NestedExample />
+        <Section title="컴포넌트">
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {PAGES.map((p) => (
+              <li key={p.slug}>
+                <a
+                  href={`#/${p.slug}`}
+                  className="block h-full rounded-2xl border border-zinc-200 bg-white p-4 transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-600"
+                >
+                  <span className="font-semibold">{p.title}</span>
+                  <span className="mt-1 block text-sm text-zinc-600 dark:text-zinc-400">{p.summary}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </Section>
 
-        <Section title="키보드 인터랙션">
-          <KeyboardTable />
+        <Section title="링크">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <li>
+              <ExternalLink href="https://github.com/HamHyunJun/LogicUI">GitHub</ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href="https://www.npmjs.com/package/@logic-ui-kit/primitives">npm · primitives</ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href="https://www.npmjs.com/package/@logic-ui-kit/ui">npm · ui</ExternalLink>
+            </li>
+          </ul>
+        </Section>
+      </div>
+    </>
+  );
+}
+
+function ComponentPage({ page, headingRef }: { page: DocPage; headingRef: HeadingRef }) {
+  return (
+    <>
+      <h1 ref={headingRef} tabIndex={-1} className="text-3xl font-bold tracking-tight outline-none">
+        {page.title}
+      </h1>
+      <p className="mt-3 text-zinc-600 dark:text-zinc-400">{page.summary}</p>
+      {page.apg && (
+        <p className="mt-2 text-sm">
+          <ExternalLink href={page.apg.href}>WAI-ARIA APG · {page.apg.label} 패턴</ExternalLink>
+        </p>
+      )}
+
+      <div className="mt-8">
+        <Section title="예제">
+          <div className="grid gap-8">
+            {page.examples.map((example) => (
+              <div key={example.title}>
+                {page.examples.length > 1 && <h3 className="text-base font-semibold">{example.title}</h3>}
+                {example.description && <p className="mt-1 mb-3 text-sm text-zinc-600 dark:text-zinc-400">{example.description}</p>}
+                {example.node}
+              </div>
+            ))}
+          </div>
         </Section>
 
-        <Section title="Accordion" description="WAI-ARIA APG의 Accordion 패턴입니다. ↑/↓/Home/End로 헤더 사이를 이동합니다.">
-          <AccordionExample />
-        </Section>
-
-        <Section title="Tooltip" description="호버(지연 후)나 키보드 포커스로 열리고, Esc로 닫힙니다. 툴팁 위로 포인터를 옮겨도 유지됩니다.">
-          <TooltipExample />
-        </Section>
-
-        <Section title="Popover" description="트리거 옆에 뜨는 비모달 팝오버입니다. 공간이 부족하면 반대편으로 뒤집히고, Esc·바깥 클릭·포커스 이탈로 닫힙니다.">
-          <PopoverExample />
+        <Section title="사용법" description="스타일이 입혀진 버전은 @logic-ui-kit/ui에서 같은 이름으로 가져옵니다.">
+          <CodeBlock label={`${page.title} 사용 예`} code={page.code} />
         </Section>
 
         <Section
-          title="Menu"
-          description="WAI-ARIA APG의 Menu Button 패턴입니다. ↑/↓/Home/End와 글자 입력으로 이동하고, Enter·Space로 선택하며, Esc로 닫습니다."
+          title="API"
+          description="DOM을 렌더하는 모든 파트는 asChild, ref, 네이티브 props를 지원하고 상태는 data-state 같은 data 속성으로 노출합니다."
         >
-          <MenuExample />
+          <ApiTable parts={page.parts} />
         </Section>
 
-        <Section title="Tabs" description="WAI-ARIA APG의 Tabs 패턴입니다. 방향키로 이동하며, manual 모드에서는 Enter/Space로 선택합니다.">
-          <TabsExample />
+        <Section title="키보드">
+          <KeyTable keys={page.keys} />
         </Section>
       </div>
-    </div>
+    </>
   );
 }
 
-function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <section className="mb-12">
-      <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-      {description && <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>}
-      <div className="mt-4">{children}</div>
-    </section>
-  );
-}
-
-function Playground() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [modal, setModal] = React.useState(true);
-  const [blockEscape, setBlockEscape] = React.useState(false);
-  const [blockOutside, setBlockOutside] = React.useState(false);
-  const [log, setLog] = React.useState<string[]>([]);
-  const push = (entry: string) => setLog((prev) => [entry, ...prev].slice(0, 6));
-
-  return (
-    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <Toggle label="modal" checked={modal} onChange={setModal} />
-        <Toggle label="Esc 닫기 막기" checked={blockEscape} onChange={setBlockEscape} />
-        <Toggle label="바깥 클릭 닫기 막기" checked={blockOutside} onChange={setBlockOutside} />
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Dialog.Root
-          open={isOpen}
-          modal={modal}
-          onOpenChange={(next) => {
-            push(`onOpenChange(${next})`);
-            setIsOpen(next);
-          }}
-        >
-          <Dialog.Trigger asChild>
-            <Button>프로필 편집</Button>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay />
-            <Dialog.Content
-              onEscapeKeyDown={(event) => {
-                push('onEscapeKeyDown');
-                if (blockEscape) event.preventDefault();
-              }}
-              onPointerDownOutside={(event) => {
-                push('onPointerDownOutside');
-                if (blockOutside) event.preventDefault();
-              }}
-            >
-              <Dialog.Header>
-                <Dialog.Title>프로필 편집</Dialog.Title>
-                <Dialog.Description>변경 사항은 저장 버튼을 눌러야 반영됩니다.</Dialog.Description>
-              </Dialog.Header>
-              <label className="grid gap-1.5 text-sm">
-                <span className="font-medium">이름</span>
-                <input
-                  defaultValue="현준"
-                  className="h-10 rounded-lg border border-zinc-300 bg-transparent px-3 dark:border-zinc-700"
-                />
-              </label>
-              <Dialog.Footer>
-                <Dialog.Close asChild>
-                  <Button variant="secondary">취소</Button>
-                </Dialog.Close>
-                <Dialog.Close asChild>
-                  <Button>저장</Button>
-                </Dialog.Close>
-              </Dialog.Footer>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
-        <span className="text-sm text-zinc-500">
-          상태: <code className="font-mono">{isOpen ? 'open' : 'closed'}</code>
-        </span>
-      </div>
-
-      <ol className="min-h-24 rounded-lg bg-zinc-100 p-3 font-mono text-xs text-zinc-600 dark:bg-zinc-950 dark:text-zinc-400">
-        {log.length === 0 ? <li>이벤트 로그가 여기에 표시됩니다.</li> : log.map((entry, i) => <li key={i}>{entry}</li>)}
-      </ol>
-    </div>
-  );
-}
-
-function HeadlessExample() {
-  return (
-    <Headless.Root>
-      <Headless.Trigger className="rounded-md border border-dashed border-zinc-400 px-3 py-1.5 text-sm">
-        열기
-      </Headless.Trigger>
-      <Headless.Portal>
-        <Headless.Overlay className="fixed inset-0 bg-black/40" />
-        <Headless.Content className="fixed top-1/2 left-1/2 w-80 -translate-x-1/2 -translate-y-1/2 border border-dashed border-zinc-400 bg-white p-4 text-zinc-900">
-          <Headless.Title className="font-semibold">제목</Headless.Title>
-          <Headless.Description className="mt-1 text-sm">내용</Headless.Description>
-          <Headless.Close className="mt-4 rounded-md border border-dashed border-zinc-400 px-3 py-1.5 text-sm">
-            닫기
-          </Headless.Close>
-        </Headless.Content>
-      </Headless.Portal>
-    </Headless.Root>
-  );
-}
-
-function NestedExample() {
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <Button variant="secondary">설정 열기</Button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay />
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>설정</Dialog.Title>
-            <Dialog.Description>계정을 삭제하면 확인 다이얼로그가 한 번 더 열립니다.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <Button variant="secondary">계정 삭제</Button>
-              </Dialog.Trigger>
-              <Dialog.Portal>
-                <Dialog.Overlay />
-                <Dialog.Content className="max-w-sm">
-                  <Dialog.Header>
-                    <Dialog.Title>정말 삭제할까요?</Dialog.Title>
-                    <Dialog.Description>이 작업은 되돌릴 수 없습니다.</Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Footer>
-                    <Dialog.Close asChild>
-                      <Button variant="secondary">취소</Button>
-                    </Dialog.Close>
-                    <Dialog.Close asChild>
-                      <Button className="bg-red-600 text-white hover:bg-red-500 dark:bg-red-600 dark:text-white">삭제</Button>
-                    </Dialog.Close>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
-            <Dialog.Close asChild>
-              <Button>닫기</Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-}
-
-function TabsExample() {
-  const [manual, setManual] = React.useState(false);
-  const [vertical, setVertical] = React.useState(false);
-  return (
-    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <Toggle label="manual 활성화" checked={manual} onChange={setManual} />
-        <Toggle label="vertical" checked={vertical} onChange={setVertical} />
-      </div>
-      <Tabs.Root
-        defaultValue="profile"
-        activationMode={manual ? 'manual' : 'automatic'}
-        orientation={vertical ? 'vertical' : 'horizontal'}
-        className="flex gap-3 data-[orientation=horizontal]:flex-col"
-      >
-        <Tabs.List aria-label="계정 설정">
-          <Tabs.Trigger value="profile">프로필</Tabs.Trigger>
-          <Tabs.Trigger value="billing" disabled>
-            결제
-          </Tabs.Trigger>
-          <Tabs.Trigger value="security">보안</Tabs.Trigger>
-        </Tabs.List>
-        <div className="flex-1">
-          <Tabs.Content value="profile" className="mt-0">프로필 정보를 수정합니다.</Tabs.Content>
-          <Tabs.Content value="security" className="mt-0">비밀번호와 2단계 인증을 관리합니다.</Tabs.Content>
-        </div>
-      </Tabs.Root>
-    </div>
-  );
-}
-
-function AccordionExample() {
-  const [multiple, setMultiple] = React.useState(false);
-  const [collapsible, setCollapsible] = React.useState(true);
-  return (
-    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <Toggle label="multiple" checked={multiple} onChange={setMultiple} />
-        <Toggle label="collapsible (single)" checked={collapsible} onChange={setCollapsible} />
-      </div>
-      {/* type을 바꾸면 열린 상태가 의미를 잃으므로 key로 초기화한다. */}
-      <Accordion.Root key={String(multiple)} type={multiple ? 'multiple' : 'single'} collapsible={collapsible} defaultValue={['what']}>
-        <Accordion.Item value="what">
-          <Accordion.Header>
-            <Accordion.Trigger>헤드리스 UI란?</Accordion.Trigger>
-          </Accordion.Header>
-          <Accordion.Content>스타일 없이 동작·접근성·키보드 인터랙션만 제공하는 컴포넌트입니다.</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item value="a11y">
-          <Accordion.Header>
-            <Accordion.Trigger>접근성은 어떻게 보장하나요?</Accordion.Trigger>
-          </Accordion.Header>
-          <Accordion.Content>WAI-ARIA APG 패턴의 키보드 표를 테스트로 옮겨 검증합니다.</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item value="disabled" disabled>
-          <Accordion.Header>
-            <Accordion.Trigger>비활성 항목</Accordion.Trigger>
-          </Accordion.Header>
-          <Accordion.Content>열리지 않습니다.</Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
-    </div>
-  );
-}
-
-function TooltipExample() {
-  return (
-    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
-        <Tooltip.Root key={side}>
-          <Tooltip.Trigger asChild>
-            <Button variant="secondary">{side}</Button>
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content side={side}>툴팁이 {side} 방향에 표시됩니다</Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      ))}
-    </div>
-  );
-}
-
-function PopoverExample() {
-  const [side, setSide] = React.useState<'top' | 'right' | 'bottom' | 'left'>('bottom');
-  return (
-    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <fieldset className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-        <legend className="sr-only">팝오버 방향</legend>
-        {(['top', 'right', 'bottom', 'left'] as const).map((s) => (
-          <label key={s} className="inline-flex items-center gap-1.5">
-            <input type="radio" name="popover-side" checked={side === s} onChange={() => setSide(s)} />
-            <span>{s}</span>
-          </label>
-        ))}
-      </fieldset>
-      <div className="flex justify-center py-10">
-        <Popover.Root>
-          <Popover.Trigger asChild>
-            <Button variant="secondary">크기 설정</Button>
-          </Popover.Trigger>
-          <Popover.Portal>
-            <Popover.Content side={side} aria-label="크기 설정">
-              <label className="grid gap-1.5">
-                <span className="font-medium">너비</span>
-                <input defaultValue="100%" className="h-9 rounded-lg border border-zinc-300 bg-transparent px-3 dark:border-zinc-700" />
-              </label>
-              <Popover.Close asChild>
-                <Button variant="ghost" className="mt-3 h-8 px-3">
-                  닫기
-                </Button>
-              </Popover.Close>
-            </Popover.Content>
-          </Popover.Portal>
-        </Popover.Root>
-      </div>
-    </div>
-  );
-}
-
-function MenuExample() {
-  const [ruler, setRuler] = React.useState(true);
-  const [sort, setSort] = React.useState('name');
-  const [last, setLast] = React.useState('');
-  return (
-    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <Menu.Root>
-        <Menu.Trigger asChild>
-          <Button variant="secondary">파일</Button>
-        </Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Content>
-            <Menu.Item onSelect={() => setLast('새 파일')}>새 파일</Menu.Item>
-            <Menu.Item onSelect={() => setLast('열기')}>열기</Menu.Item>
-            <Menu.Item disabled>인쇄</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item onSelect={() => setLast('저장')}>저장</Menu.Item>
-            <Menu.Item onSelect={() => setLast('다른 이름으로 저장')}>다른 이름으로 저장</Menu.Item>
-          </Menu.Content>
-        </Menu.Portal>
-      </Menu.Root>
-
-      <Menu.Root>
-        <Menu.Trigger asChild>
-          <Button variant="secondary">보기</Button>
-        </Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Content>
-            <Menu.CheckboxItem checked={ruler} onCheckedChange={setRuler} onSelect={(event) => event.preventDefault()}>
-              눈금자
-            </Menu.CheckboxItem>
-            <Menu.Separator />
-            <Menu.RadioGroup aria-label="정렬 기준" value={sort} onValueChange={setSort}>
-              <Menu.RadioItem value="name" onSelect={(event) => event.preventDefault()}>
-                이름순
-              </Menu.RadioItem>
-              <Menu.RadioItem value="date" onSelect={(event) => event.preventDefault()}>
-                날짜순
-              </Menu.RadioItem>
-            </Menu.RadioGroup>
-          </Menu.Content>
-        </Menu.Portal>
-      </Menu.Root>
-
-      <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
-        마지막 선택: {last || '없음'} · 눈금자 {ruler ? '켜짐' : '꺼짐'} · 정렬 {sort === 'name' ? '이름순' : '날짜순'}
-      </p>
-    </div>
-  );
-}
-
-const KEYS: Array<[string, string]> = [
-  ['Enter / Space', '트리거에서 다이얼로그를 연다.'],
-  ['Tab', '다이얼로그 안의 다음 요소로 이동한다. 마지막 요소에서는 첫 요소로 돌아간다.'],
-  ['Shift + Tab', '이전 요소로 이동한다. 첫 요소에서는 마지막 요소로 돌아간다.'],
-  ['Esc', '다이얼로그를 닫고 트리거로 포커스를 되돌린다.'],
-];
-
-function KeyboardTable() {
-  return (
-    <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
-      <table className="w-full text-left text-sm">
-        <thead className="bg-zinc-100 dark:bg-zinc-900">
-          <tr>
-            <th className="px-4 py-2 font-medium">키</th>
-            <th className="px-4 py-2 font-medium">동작</th>
-          </tr>
-        </thead>
-        <tbody>
-          {KEYS.map(([key, action]) => (
-            <tr key={key} className="border-t border-zinc-200 dark:border-zinc-800">
-              <td className="px-4 py-2 whitespace-nowrap">
-                <kbd className="rounded border border-zinc-300 px-1.5 py-0.5 font-mono text-xs dark:border-zinc-700">{key}</kbd>
-              </td>
-              <td className="px-4 py-2 text-zinc-600 dark:text-zinc-400">{action}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
-  return (
-    <label className="inline-flex items-center gap-2">
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="size-4" />
-      <span>{label}</span>
-    </label>
+    <a href={href} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-300">
+      {children}
+      <span className="sr-only"> (새 창)</span>
+    </a>
   );
 }
 
