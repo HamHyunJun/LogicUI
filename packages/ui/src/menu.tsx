@@ -78,7 +78,7 @@ Item.displayName = 'Menu.Item';
 
 export const CheckboxItem: React.ForwardRefExoticComponent<MenuCheckboxItemProps & React.RefAttributes<HTMLDivElement>> =
   React.forwardRef<HTMLDivElement, MenuCheckboxItemProps>(({ className, children, ...props }, ref) => (
-    <MenuPrimitive.CheckboxItem ref={ref} className={cn('group pl-9', itemClassName, className)} {...props}>
+    <MenuPrimitive.CheckboxItem ref={ref} className={cn(itemClassName, 'group pl-9', className)} {...props}>
       <Indicator>
         <CheckIcon />
       </Indicator>
@@ -91,7 +91,7 @@ export const RadioItem: React.ForwardRefExoticComponent<MenuRadioItemProps & Rea
   HTMLDivElement,
   MenuRadioItemProps
 >(({ className, children, ...props }, ref) => (
-  <MenuPrimitive.RadioItem ref={ref} className={cn('group pl-9', itemClassName, className)} {...props}>
+  <MenuPrimitive.RadioItem ref={ref} className={cn(itemClassName, 'group pl-9', className)} {...props}>
     <Indicator>
       <DotIcon />
     </Indicator>

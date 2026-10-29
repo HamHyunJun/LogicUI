@@ -47,6 +47,9 @@ test('Menu: 체크박스·라디오 항목은 선택해도 메뉴가 열려 있�
 
   const ruler = page.getByRole('menuitemcheckbox', { name: '눈금자' });
   await expect(ruler).toHaveAttribute('aria-checked', 'true');
+
+  // 체크 표시가 글자를 가리지 않도록 왼쪽 여백(pl-9 = 36px)이 남아 있어야 한다.
+  expect(await ruler.evaluate((el) => parseFloat(getComputedStyle(el).paddingLeft))).toBeGreaterThanOrEqual(36);
   await ruler.click();
   await expect(ruler).toHaveAttribute('aria-checked', 'false');
 
