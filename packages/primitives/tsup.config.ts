@@ -20,6 +20,7 @@ export default defineConfig({
     'alert-dialog/index': 'src/alert-dialog/index.ts',
     'toast/index': 'src/toast/index.ts',
     'select/index': 'src/select/index.ts',
+    'combobox/index': 'src/combobox/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

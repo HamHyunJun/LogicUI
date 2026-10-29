@@ -14,5 +14,6 @@ export * as Slider from './slider';
 export * as AlertDialog from './alert-dialog';
 export * as Toast from './toast';
 export * as Select from './select';
+export * as Combobox from './combobox';
 export { Button, type ButtonProps } from './button';
 export { cn } from './cn';

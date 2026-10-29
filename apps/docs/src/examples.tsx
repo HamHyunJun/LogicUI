@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Select, Slider, Switch, Tabs, Toast, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Combobox, Dialog, Menu, Popover, Progress, RadioGroup, Select, Slider, Switch, Tabs, Toast, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -708,6 +708,43 @@ export function SelectExample() {
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
+      </div>
+    </div>
+  );
+}
+
+export function ComboboxExample() {
+  const countries = ['대한민국', '미국', '일본', '중국', '독일', '프랑스', '영국', '이탈리아', '캐나다', '호주', '브라질', '인도'];
+  const [text, setText] = React.useState('');
+  const [country, setCountry] = React.useState<string | undefined>(undefined);
+  // 입력에 맞춰 옵션을 거르는 일은 소비자 몫이다.
+  const matches = countries.filter((c) => c.includes(text.trim()));
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid gap-2">
+        <label htmlFor="country" className="text-sm font-medium">
+          나라
+        </label>
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="w-64">
+            <Combobox.Root value={country} onValueChange={setCountry} inputValue={text} onInputValueChange={setText}>
+              <Combobox.Input id="country" placeholder="나라 이름을 입력하세요" />
+              <Combobox.Portal>
+                <Combobox.Content>
+                  {matches.map((c) => (
+                    <Combobox.Item key={c} value={c}>
+                      {c}
+                    </Combobox.Item>
+                  ))}
+                  {matches.length === 0 && <div className="px-3 py-2 text-sm text-zinc-500">일치하는 나라가 없습니다.</div>}
+                </Combobox.Content>
+              </Combobox.Portal>
+            </Combobox.Root>
+          </div>
+          <span className="text-sm text-zinc-500">
+            선택: <code className="font-mono">{country ?? '없음'}</code>
+          </span>
+        </div>
       </div>
     </div>
   );
