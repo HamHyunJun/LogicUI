@@ -10,5 +10,6 @@ export * as RadioGroup from './radio-group';
 export * as Progress from './progress';
 export * as ToggleGroup from './toggle-group';
 export * as Breadcrumb from './breadcrumb';
+export * as Slider from './slider';
 export { Button, type ButtonProps } from './button';
 export { cn } from './cn';
