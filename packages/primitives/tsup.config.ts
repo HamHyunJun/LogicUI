@@ -18,6 +18,7 @@ export default defineConfig({
     'breadcrumb/index': 'src/breadcrumb/index.ts',
     'slider/index': 'src/slider/index.ts',
     'alert-dialog/index': 'src/alert-dialog/index.ts',
+    'toast/index': 'src/toast/index.ts',
   },
   format: ['esm', 'cjs'],
   outExtension: ({ format }) => ({ js: format === 'esm' ? '.mjs' : '.cjs' }),

@@ -12,5 +12,6 @@ export * from './toggle-group';
 export * from './breadcrumb';
 export * from './slider';
 export * from './alert-dialog';
+export * from './toast';
 export { Slot } from './shared/slot';
 export type { AsChildProps } from './shared/primitive';
