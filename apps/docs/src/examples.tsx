@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, AlertDialog, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, Toast, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -584,5 +584,41 @@ export function AlertDialogExample() {
         삭제 횟수: <code className="font-mono">{deleted}</code>
       </span>
     </div>
+  );
+}
+
+export function ToastExample() {
+  const [toasts, setToasts] = React.useState<Array<{ id: number; title: string; description: string; type: 'foreground' | 'background'; undo: boolean }>>([]);
+  const [undone, setUndone] = React.useState(0);
+  const nextId = React.useRef(1);
+  const add = (toast: { title: string; description: string; type: 'foreground' | 'background'; undo: boolean }) =>
+    setToasts((list) => [...list, { id: nextId.current++, ...toast }]);
+  return (
+    <Toast.Provider duration={4000}>
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <Button variant="secondary" onClick={() => add({ title: '저장됨', description: '변경 사항이 저장되었습니다.', type: 'background', undo: true })}>
+          저장 알림
+        </Button>
+        <Button variant="secondary" onClick={() => add({ title: '업로드 실패', description: '네트워크 연결을 확인하세요.', type: 'foreground', undo: false })}>
+          오류 알림
+        </Button>
+        <span className="text-sm text-zinc-500">
+          실행 취소 횟수: <code className="font-mono">{undone}</code> · F8로 알림 영역에 포커스
+        </span>
+      </div>
+      {toasts.map((toast) => (
+        <Toast.Root
+          key={toast.id}
+          type={toast.type}
+          onOpenChange={(open) => !open && setToasts((list) => list.filter((t) => t.id !== toast.id))}
+        >
+          <Toast.Title>{toast.title}</Toast.Title>
+          <Toast.Description>{toast.description}</Toast.Description>
+          {toast.undo && <Toast.Action onClick={() => setUndone((n) => n + 1)}>실행 취소</Toast.Action>}
+          <Toast.Close />
+        </Toast.Root>
+      ))}
+      <Toast.Viewport />
+    </Toast.Provider>
   );
 }

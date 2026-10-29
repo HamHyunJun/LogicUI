@@ -17,6 +17,7 @@ import {
   BreadcrumbExample,
   SliderExample,
   AlertDialogExample,
+  ToastExample,
 } from './examples';
 
 export interface DocPage {
@@ -689,6 +690,57 @@ export const PAGES: DocPage[] = [
       ['Enter / Space', '트리거에서 다이얼로그를 연다. 포커스된 버튼을 누른다.'],
       ['Tab / Shift + Tab', '다이얼로그 안에서 포커스를 순환한다.'],
       ['Esc', '다이얼로그를 닫고 트리거로 포커스를 되돌린다.'],
+    ],
+  },
+  {
+    slug: 'toast',
+    title: 'Toast',
+    summary: '잠깐 떴다 사라지는 알림입니다. 미리 존재하는 region에 쌓여 보조기기가 읽어 주고, 호버·포커스 중에는 자동 닫힘이 멈추며, F8로 키보드 사용자가 알림에 닿을 수 있습니다.',
+    examples: [{ title: '예제', description: '버튼으로 알림을 띄워 보세요. 4초 뒤 사라지지만 마우스를 올려 두면 멈춥니다. 알림은 화면 오른쪽 아래에 쌓입니다.', node: <ToastExample /> }],
+    code: `import { Toast } from '@logic-ui-kit/primitives/toast';
+
+<Toast.Provider duration={5000}>
+  <button onClick={() => setOpen(true)}>저장</button>
+
+  <Toast.Root open={open} onOpenChange={setOpen}>
+    <Toast.Title>저장됨</Toast.Title>
+    <Toast.Description>변경 사항이 저장되었습니다.</Toast.Description>
+    <Toast.Action onClick={undo}>실행 취소</Toast.Action>
+    <Toast.Close aria-label="닫기">×</Toast.Close>
+  </Toast.Root>
+
+  <Toast.Viewport />
+</Toast.Provider>`,
+    parts: [
+      {
+        name: 'Toast.Provider',
+        description: '자동 닫힘 시간 등 공통 설정과 Viewport 위치를 공유한다. Root와 Viewport를 모두 감싸야 한다.',
+        props: [{ name: 'duration', type: 'number', description: '토스트가 자동으로 닫히기까지의 시간(ms). Infinity면 자동으로 닫히지 않는다.', default: '5000' }],
+      },
+      {
+        name: 'Toast.Viewport',
+        description: 'Toast가 쌓이는 region(role="region"). 화면 어디에 둘지는 스타일로 정한다. 알림이 도착하기 전에 미리 렌더되어 있어야 한다.',
+        props: [{ name: 'hotkey', type: 'string', description: '이 키를 누르면 Viewport로 포커스를 옮긴다.', default: "'F8'" }],
+      },
+      {
+        name: 'Toast.Root',
+        description: '알림 하나. 열려 있을 때만 Viewport 안에 렌더된다. 포인터가 올라가 있거나 포커스가 안에 있으면 자동 닫힘이 멈추고, 벗어나면 남은 시간부터 이어서 센다. 포커스된 상태에서 Esc로 닫는다.',
+        props: [
+          ...open.map((p) => (p.name === 'defaultOpen' ? { ...p, default: 'true' } : p)),
+          { name: 'duration', type: 'number', description: '이 토스트만의 자동 닫힘 시간(ms). 지정하지 않으면 Provider 값을 쓴다.' },
+          { name: 'type', type: "'foreground' | 'background'", description: 'background는 role="status"로 하던 일을 방해하지 않고 읽어 주고, foreground는 role="alert"로 즉시 읽는다. 중요한 오류에만 foreground를 쓴다.', default: "'background'" },
+          { name: 'forceMount', type: 'boolean', description: '닫혀 있어도 렌더한다(퇴장 애니메이션을 직접 제어할 때).' },
+        ],
+      },
+      { name: 'Toast.Title', description: '알림의 제목.' },
+      { name: 'Toast.Description', description: '알림의 내용.' },
+      { name: 'Toast.Action', description: '알림에서 바로 할 수 있는 동작(예: 실행 취소). 누르면 onClick을 호출하고 토스트를 닫는다.' },
+      { name: 'Toast.Close', description: '토스트를 닫는 버튼. 아이콘만 있다면 aria-label을 붙인다.' },
+    ],
+    keys: [
+      ['F8', '알림 영역(Viewport)으로 포커스를 옮긴다. 자동으로 사라지는 알림에 키보드로 닿을 수 있다.'],
+      ['Tab', '알림 안의 버튼(Action, Close)으로 이동한다. 포커스가 안에 있는 동안은 자동 닫힘이 멈춘다.'],
+      ['Esc', '포커스된 알림을 닫는다.'],
     ],
   },
 ];
