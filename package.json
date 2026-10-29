@@ -10,6 +10,7 @@
     "dev": "turbo run dev",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
+    "e2e": "turbo run e2e",
     "changeset": "changeset",
     "release": "turbo run build --filter=./packages/* && changeset publish"
   },

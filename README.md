@@ -45,6 +45,7 @@ pnpm install
 pnpm dev                 # 패키지 빌드 후 문서 사이트 실행
 pnpm test                # 전체 테스트 (Vitest + Testing Library + vitest-axe)
 pnpm build               # 전체 빌드 (Turborepo)
+pnpm e2e                 # 실제 Chromium 검사 (처음 한 번: pnpm --filter @logic-ui-kit/docs exec playwright install chromium)
 ```
 
 ## 컴포넌트

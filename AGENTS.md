@@ -18,7 +18,7 @@
 | `tsconfig.base.json` | `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax` |
 | `vercel.json` | 데모 배포: `turbo --filter=@logic-ui-kit/docs` 빌드 → `apps/docs/dist` |
 | `.changeset/` | 변경 기록. `@logic-ui-kit/docs`는 ignore |
-| `.github/workflows/` | `ci.yml`(Node 22/24: typecheck·test·build), `release.yml`(Changesets 릴리스) |
+| `.github/workflows/` | `ci.yml`(Node 22/24: typecheck·test·build, 별도 e2e 잡), `release.yml`(Changesets 릴리스) |
 
 ## Subdirectories
 | Directory | Purpose |
@@ -40,6 +40,7 @@
 pnpm install        # Node 22.22+, pnpm 10 (corepack enable)
 pnpm typecheck && pnpm test && pnpm build   # 작업 완료 전 모두 통과해야 함
 pnpm --filter @logic-ui-kit/primitives test     # 패키지 하나만
+pnpm e2e            # 실제 Chromium 검사 (처음 한 번 playwright install chromium 필요)
 ```
 
 ### Common Patterns

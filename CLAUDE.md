@@ -87,7 +87,7 @@ pnpm --filter @logic-ui-kit/primitives test   # 패키지 하나만
   - 제어·비제어 모드, `preventDefault()`로 기본 동작 취소
   - 열린/닫힌 상태 각각 `axe` 위반 없음 (jsdom에서는 `color-contrast` 규칙을 끈다)
 - 테스트를 건너뛰거나(`skip`, `todo`) 지워서 통과시키지 않는다.
-- jsdom에서 확인할 수 없는 동작(실제 포커스·클릭 순서 등)을 바꿨다면 `apps/docs`를 빌드해 Playwright로 실제 브라우저에서 확인한다.
+- jsdom에서 확인할 수 없는 동작(실제 포커스·클릭 순서, 위치·레이아웃 등)을 바꿨다면 `pnpm e2e`로 실제 Chromium에서 확인한다. `apps/docs/e2e`의 Playwright 테스트이며 CI에서도 돈다. 새 컴포넌트를 추가하면 여기에도 시나리오를 추가한다.
 
 ## ui 패키지 규칙
 
