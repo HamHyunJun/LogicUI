@@ -123,6 +123,16 @@
         "default": "./dist/radio-group/index.cjs"
       }
     },
+    "./progress": {
+      "import": {
+        "types": "./dist/progress/index.d.ts",
+        "default": "./dist/progress/index.mjs"
+      },
+      "require": {
+        "types": "./dist/progress/index.d.cts",
+        "default": "./dist/progress/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -160,6 +170,9 @@
       ],
       "radio-group": [
         "./dist/radio-group/index.d.ts"
+      ],
+      "progress": [
+        "./dist/progress/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

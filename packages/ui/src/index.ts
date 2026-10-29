@@ -7,5 +7,6 @@ export * as Menu from './menu';
 export * as Switch from './switch';
 export * as Checkbox from './checkbox';
 export * as RadioGroup from './radio-group';
+export * as Progress from './progress';
 export { Button, type ButtonProps } from './button';
 export { cn } from './cn';

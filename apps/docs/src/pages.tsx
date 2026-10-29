@@ -12,6 +12,7 @@ import {
   SwitchExample,
   CheckboxExample,
   RadioGroupExample,
+  ProgressExample,
 } from './examples';
 
 export interface DocPage {
@@ -503,5 +504,30 @@ export const PAGES: DocPage[] = [
       ['↑ / ←', '이전 항목으로 포커스를 옮기며 선택한다. 첫 항목에서는 마지막으로 순환한다.'],
       ['Space', '포커스된 항목이 선택되어 있지 않으면 선택한다.'],
     ],
+  },
+  {
+    slug: 'progress',
+    title: 'Progress',
+    summary: '작업의 진행 정도를 보여 주는 표시 컴포넌트입니다. APG 패턴이 아니라 WAI-ARIA progressbar 역할을 따르며, 값을 알 수 없으면 indeterminate 상태가 되어 aria-valuenow를 생략합니다.',
+    examples: [{ title: '예제', description: '버튼으로 값을 바꿔 보세요. 아래 막대는 진행 정도를 알 수 없는 상태입니다.', node: <ProgressExample /> }],
+    code: `import { Progress } from '@logic-ui-kit/primitives/progress';
+
+<span id="upload-label">업로드</span>
+<Progress.Root aria-labelledby="upload-label" value={35} max={100}>
+  <Progress.Indicator style={{ width: '35%' }} />
+</Progress.Root>`,
+    parts: [
+      {
+        name: 'Progress.Root',
+        description: 'role="progressbar". aria-label 또는 aria-labelledby로 이름을 붙인다. data-state는 "loading" | "complete" | "indeterminate".',
+        props: [
+          { name: 'value', type: 'number | null', description: '현재 값(0~max). null·undefined이거나 범위를 벗어나면 indeterminate로 다룬다.' },
+          { name: 'max', type: 'number', description: '최댓값.', default: '100' },
+          { name: 'getValueLabel', type: '(value: number, max: number) => string', description: 'aria-valuetext로 쓸 값 설명. 예: "5단계 중 3단계".' },
+        ],
+      },
+      { name: 'Progress.Indicator', description: '진행 정도를 그리는 요소. data-value, data-max, data-state를 보고 너비 등을 스타일링한다.' },
+    ],
+    keys: [['—', '키보드 상호작용이 없는 표시 컴포넌트입니다. 포커스를 받지 않습니다.']],
   },
 ];
