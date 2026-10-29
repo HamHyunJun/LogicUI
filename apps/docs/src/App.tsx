@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui/primitives/dialog';
-import { Accordion, Button, Dialog } from '@logic-ui/ui';
+import { Accordion, Button, Dialog, Tabs } from '@logic-ui/ui';
 import * as React from 'react';
 
 export function App() {
@@ -35,6 +35,10 @@ export function App() {
 
         <Section title="Accordion" description="WAI-ARIA APG의 Accordion 패턴입니다. ↑/↓/Home/End로 헤더 사이를 이동합니다.">
           <AccordionExample />
+        </Section>
+
+        <Section title="Tabs" description="WAI-ARIA APG의 Tabs 패턴입니다. 방향키로 이동하며, manual 모드에서는 Enter/Space로 선택합니다.">
+          <TabsExample />
         </Section>
       </div>
     </div>
@@ -188,6 +192,37 @@ function NestedExample() {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+function TabsExample() {
+  const [manual, setManual] = React.useState(false);
+  const [vertical, setVertical] = React.useState(false);
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <Toggle label="manual 활성화" checked={manual} onChange={setManual} />
+        <Toggle label="vertical" checked={vertical} onChange={setVertical} />
+      </div>
+      <Tabs.Root
+        defaultValue="profile"
+        activationMode={manual ? 'manual' : 'automatic'}
+        orientation={vertical ? 'vertical' : 'horizontal'}
+        className="flex gap-3 data-[orientation=horizontal]:flex-col"
+      >
+        <Tabs.List aria-label="계정 설정">
+          <Tabs.Trigger value="profile">프로필</Tabs.Trigger>
+          <Tabs.Trigger value="billing" disabled>
+            결제
+          </Tabs.Trigger>
+          <Tabs.Trigger value="security">보안</Tabs.Trigger>
+        </Tabs.List>
+        <div className="flex-1">
+          <Tabs.Content value="profile" className="mt-0">프로필 정보를 수정합니다.</Tabs.Content>
+          <Tabs.Content value="security" className="mt-0">비밀번호와 2단계 인증을 관리합니다.</Tabs.Content>
+        </div>
+      </Tabs.Root>
+    </div>
   );
 }
 
