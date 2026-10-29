@@ -29,12 +29,25 @@
         "default": "./dist/dialog/index.cjs"
       }
     },
+    "./popover": {
+      "import": {
+        "types": "./dist/popover/index.d.ts",
+        "default": "./dist/popover/index.mjs"
+      },
+      "require": {
+        "types": "./dist/popover/index.d.cts",
+        "default": "./dist/popover/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "dialog": [
         "./dist/dialog/index.d.ts"
+      ],
+      "popover": [
+        "./dist/popover/index.d.ts"
       ]
     }
   },
