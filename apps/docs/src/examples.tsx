@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Button, Checkbox, Dialog, Menu, Popover, RadioGroup, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -399,6 +399,41 @@ export function RadioGroupExample() {
       <p className="text-sm text-zinc-500">
         선택: <code className="font-mono">{plan}</code>
       </p>
+    </div>
+  );
+}
+
+export function ProgressExample() {
+  const [value, setValue] = React.useState(35);
+  return (
+    <div className="grid gap-5 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid gap-2">
+        <div className="flex justify-between text-sm">
+          <span id="upload-label" className="font-medium">
+            업로드
+          </span>
+          <span className="font-mono text-zinc-500">{value}%</span>
+        </div>
+        <Progress.Root aria-labelledby="upload-label" value={value}>
+          <Progress.Indicator />
+        </Progress.Root>
+        <div className="flex gap-2">
+          <Button variant="secondary" onClick={() => setValue((v) => Math.max(0, v - 15))}>
+            -15
+          </Button>
+          <Button variant="secondary" onClick={() => setValue((v) => Math.min(100, v + 15))}>
+            +15
+          </Button>
+        </div>
+      </div>
+      <div className="grid gap-2">
+        <span id="load-label" className="text-sm font-medium">
+          불러오는 중 (진행 정도를 알 수 없음)
+        </span>
+        <Progress.Root aria-labelledby="load-label" value={null}>
+          <Progress.Indicator />
+        </Progress.Root>
+      </div>
     </div>
   );
 }
