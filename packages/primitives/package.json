@@ -49,6 +49,16 @@
         "default": "./dist/accordion/index.cjs"
       }
     },
+    "./popover": {
+      "import": {
+        "types": "./dist/popover/index.d.ts",
+        "default": "./dist/popover/index.mjs"
+      },
+      "require": {
+        "types": "./dist/popover/index.d.cts",
+        "default": "./dist/popover/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -61,6 +71,9 @@
       ],
       "accordion": [
         "./dist/accordion/index.d.ts"
+      ],
+      "popover": [
+        "./dist/popover/index.d.ts"
       ]
     }
   },

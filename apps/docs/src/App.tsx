@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui/primitives/dialog';
-import { Accordion, Button, Dialog, Tabs } from '@logic-ui/ui';
+import { Accordion, Button, Dialog, Popover, Tabs } from '@logic-ui/ui';
 import * as React from 'react';
 
 export function App() {
@@ -35,6 +35,10 @@ export function App() {
 
         <Section title="Accordion" description="WAI-ARIA APG의 Accordion 패턴입니다. ↑/↓/Home/End로 헤더 사이를 이동합니다.">
           <AccordionExample />
+        </Section>
+
+        <Section title="Popover" description="트리거 옆에 뜨는 비모달 팝오버입니다. 공간이 부족하면 반대편으로 뒤집히고, Esc·바깥 클릭·포커스 이탈로 닫힙니다.">
+          <PopoverExample />
         </Section>
 
         <Section title="Tabs" description="WAI-ARIA APG의 Tabs 패턴입니다. 방향키로 이동하며, manual 모드에서는 Enter/Space로 선택합니다.">
@@ -256,6 +260,43 @@ function AccordionExample() {
           <Accordion.Content>열리지 않습니다.</Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
+    </div>
+  );
+}
+
+function PopoverExample() {
+  const [side, setSide] = React.useState<'top' | 'right' | 'bottom' | 'left'>('bottom');
+  return (
+    <div className="grid gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <fieldset className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+        <legend className="sr-only">팝오버 방향</legend>
+        {(['top', 'right', 'bottom', 'left'] as const).map((s) => (
+          <label key={s} className="inline-flex items-center gap-1.5">
+            <input type="radio" name="popover-side" checked={side === s} onChange={() => setSide(s)} />
+            <span>{s}</span>
+          </label>
+        ))}
+      </fieldset>
+      <div className="flex justify-center py-10">
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <Button variant="secondary">크기 설정</Button>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content side={side} aria-label="크기 설정">
+              <label className="grid gap-1.5">
+                <span className="font-medium">너비</span>
+                <input defaultValue="100%" className="h-9 rounded-lg border border-zinc-300 bg-transparent px-3 dark:border-zinc-700" />
+              </label>
+              <Popover.Close asChild>
+                <Button variant="ghost" className="mt-3 h-8 px-3">
+                  닫기
+                </Button>
+              </Popover.Close>
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
+      </div>
     </div>
   );
 }
