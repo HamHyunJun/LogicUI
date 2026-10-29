@@ -6,22 +6,22 @@ test('소개 페이지가 열리고 컴포넌트 목록이 내비게이션에 �
   await expect(page).toHaveTitle('LogicUI 문서');
 
   const nav = page.getByRole('navigation', { name: '컴포넌트' });
-  await expect(nav.getByRole('link', { name: '소개' })).toHaveAttribute('aria-current', 'page');
-  for (const name of ['Dialog', 'Tabs', 'Accordion', 'Popover', 'Tooltip', 'Menu']) {
-    await expect(nav.getByRole('link', { name })).toBeVisible();
+  await expect(nav.getByRole('link', { name: '소개', exact: true })).toHaveAttribute('aria-current', 'page');
+  for (const name of ['Dialog', 'Alert Dialog', 'Tabs', 'Accordion', 'Popover', 'Tooltip', 'Menu']) {
+    await expect(nav.getByRole('link', { name, exact: true })).toBeVisible();
   }
 });
 
 test('링크로 이동하면 제목·aria-current가 바뀌고 h1으로 포커스가 이동한다', async ({ page }) => {
   await page.goto('/');
   const nav = page.getByRole('navigation', { name: '컴포넌트' });
-  await nav.getByRole('link', { name: 'Menu' }).click();
+  await nav.getByRole('link', { name: 'Menu', exact: true }).click();
 
   await expect(page).toHaveURL(/#\/menu$/);
   await expect(page).toHaveTitle('Menu · LogicUI');
   await expect(page.getByRole('heading', { level: 1, name: 'Menu' })).toBeFocused();
-  await expect(nav.getByRole('link', { name: 'Menu' })).toHaveAttribute('aria-current', 'page');
-  await expect(nav.getByRole('link', { name: '소개' })).not.toHaveAttribute('aria-current', 'page');
+  await expect(nav.getByRole('link', { name: 'Menu', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(nav.getByRole('link', { name: '소개', exact: true })).not.toHaveAttribute('aria-current', 'page');
 });
 
 test('직접 주소로 들어가도 해당 컴포넌트 페이지가 열리고 첫 로드는 포커스를 가져가지 않는다', async ({ page }) => {
@@ -32,7 +32,7 @@ test('직접 주소로 들어가도 해당 컴포넌트 페이지가 열리고 �
 
 test('브라우저 뒤로 가기로 이전 페이지로 돌아온다', async ({ page }) => {
   await page.goto('/#/dialog');
-  await page.getByRole('navigation', { name: '컴포넌트' }).getByRole('link', { name: 'Tooltip' }).click();
+  await page.getByRole('navigation', { name: '컴포넌트' }).getByRole('link', { name: 'Tooltip', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'Tooltip' })).toBeVisible();
   await page.goBack();
   await expect(page.getByRole('heading', { level: 1, name: 'Dialog' })).toBeVisible();
@@ -44,11 +44,16 @@ test('알 수 없는 주소는 소개 페이지로 대체된다', async ({ page 
   await expect(page.getByRole('heading', { level: 1, name: 'LogicUI' })).toBeVisible();
 });
 
-test('모든 컴포넌트 페이지에 예제·사용법·API·키보드 섹션이 있다', async ({ page }) => {
-  for (const slug of ['dialog', 'tabs', 'accordion', 'popover', 'tooltip', 'menu']) {
-    await page.goto(`/#/${slug}`);
+test('내비게이션의 모든 컴포넌트 페이지에 예제·사용법·API·키보드 섹션이 있다', async ({ page }) => {
+  await page.goto('/');
+  const hrefs = await page.getByRole('navigation', { name: '컴포넌트' }).getByRole('link').evaluateAll((links) =>
+    links.map((a) => a.getAttribute('href') ?? '').filter((href) => href !== '#/'),
+  );
+  expect(hrefs.length).toBeGreaterThanOrEqual(12);
+  for (const href of hrefs) {
+    await page.goto(`/${href}`);
     for (const name of ['예제', '사용법', 'API', '키보드']) {
-      await expect(page.getByRole('heading', { level: 2, name, exact: true }), `${slug} · ${name}`).toBeVisible();
+      await expect(page.getByRole('heading', { level: 2, name, exact: true }), `${href} · ${name}`).toBeVisible();
     }
   }
 });

@@ -163,6 +163,16 @@
         "default": "./dist/slider/index.cjs"
       }
     },
+    "./alert-dialog": {
+      "import": {
+        "types": "./dist/alert-dialog/index.d.ts",
+        "default": "./dist/alert-dialog/index.mjs"
+      },
+      "require": {
+        "types": "./dist/alert-dialog/index.d.cts",
+        "default": "./dist/alert-dialog/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -212,6 +222,9 @@
       ],
       "slider": [
         "./dist/slider/index.d.ts"
+      ],
+      "alert-dialog": [
+        "./dist/alert-dialog/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

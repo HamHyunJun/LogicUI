@@ -16,6 +16,7 @@ import {
   ToggleGroupExample,
   BreadcrumbExample,
   SliderExample,
+  AlertDialogExample,
 } from './examples';
 
 export interface DocPage {
@@ -647,6 +648,47 @@ export const PAGES: DocPage[] = [
       ['PageUp / PageDown', '값을 step의 10배만큼 늘리거나 줄인다.'],
       ['Home / End', '값을 min / max로 옮긴다.'],
       ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
+    ],
+  },
+  {
+    slug: 'alert-dialog',
+    title: 'Alert Dialog',
+    summary: '사용자의 분명한 응답이 필요한 확인 다이얼로그입니다. Dialog와 달리 바깥을 눌러도 닫히지 않고, 열릴 때 가장 안전한 선택지인 Cancel에 포커스합니다.',
+    apg: { label: 'Alert Dialog', href: `${APG}/alertdialog/` },
+    examples: [{ title: '예제', description: '열리면 "취소"에 포커스가 있습니다. 오버레이를 눌러도 닫히지 않고 Esc나 버튼으로만 닫힙니다.', node: <AlertDialogExample /> }],
+    code: `import { AlertDialog } from '@logic-ui-kit/primitives/alert-dialog';
+
+<AlertDialog.Root>
+  <AlertDialog.Trigger>프로젝트 삭제</AlertDialog.Trigger>
+  <AlertDialog.Portal>
+    <AlertDialog.Overlay />
+    <AlertDialog.Content>
+      <AlertDialog.Title>프로젝트를 삭제할까요?</AlertDialog.Title>
+      <AlertDialog.Description>되돌릴 수 없습니다.</AlertDialog.Description>
+      <AlertDialog.Cancel>취소</AlertDialog.Cancel>
+      <AlertDialog.Action onClick={remove}>삭제</AlertDialog.Action>
+    </AlertDialog.Content>
+  </AlertDialog.Portal>
+</AlertDialog.Root>`,
+    parts: [
+      { name: 'AlertDialog.Root', description: 'Dialog.Root와 같지만 항상 모달이라 modal 옵션이 없다.', props: open },
+      { name: 'AlertDialog.Trigger', description: 'Dialog.Trigger와 같다.' },
+      { ...portal, name: 'AlertDialog.Portal' },
+      { name: 'AlertDialog.Overlay', description: 'Dialog.Overlay와 같다.' },
+      {
+        name: 'AlertDialog.Content',
+        description: 'role="alertdialog". 바깥 클릭으로 닫히지 않는다(onPointerDownOutside 없음). Esc는 닫는다.',
+        props: [{ name: 'forceMount', type: 'boolean', description: '닫혀 있어도 렌더한다.' }, openAutoFocus, closeAutoFocus, escapeProp],
+      },
+      { name: 'AlertDialog.Title', description: 'Content의 접근 가능한 이름.' },
+      { name: 'AlertDialog.Description', description: 'Content의 접근 가능한 설명. 알림의 맥락을 담는다.' },
+      { name: 'AlertDialog.Cancel', description: '아무것도 하지 않고 닫는 버튼. 열릴 때 가장 먼저 포커스를 받는다(없으면 첫 tabbable 요소).' },
+      { name: 'AlertDialog.Action', description: '확정하는 버튼. 누르면 닫히며 실제 동작은 onClick에서 처리한다.' },
+    ],
+    keys: [
+      ['Enter / Space', '트리거에서 다이얼로그를 연다. 포커스된 버튼을 누른다.'],
+      ['Tab / Shift + Tab', '다이얼로그 안에서 포커스를 순환한다.'],
+      ['Esc', '다이얼로그를 닫고 트리거로 포커스를 되돌린다.'],
     ],
   },
 ];
