@@ -10,5 +10,6 @@ export * from './radio-group';
 export * from './progress';
 export * from './toggle-group';
 export * from './breadcrumb';
+export * from './slider';
 export { Slot } from './shared/slot';
 export type { AsChildProps } from './shared/primitive';

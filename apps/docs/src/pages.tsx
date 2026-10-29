@@ -15,6 +15,7 @@ import {
   ProgressExample,
   ToggleGroupExample,
   BreadcrumbExample,
+  SliderExample,
 } from './examples';
 
 export interface DocPage {
@@ -603,6 +604,49 @@ export const PAGES: DocPage[] = [
     keys: [
       ['Tab / Shift + Tab', '상위 경로 링크 사이를 이동한다. 현재 페이지와 구분자는 포커스를 받지 않는다.'],
       ['Enter', '포커스된 링크로 이동한다.'],
+    ],
+  },
+  {
+    slug: 'slider',
+    title: 'Slider',
+    summary: '범위 안의 값 하나를 고르는 슬라이더입니다. 키보드 키 전체와 포인터 드래그를 지원하고, 썸이 하나인 단일 값만 다룹니다.',
+    apg: { label: 'Slider', href: `${APG}/slider/` },
+    examples: [{ title: '예제', description: '썸을 드래그하거나 방향키·PageUp/PageDown·Home/End로 움직여 보세요. 값은 움직일 때마다, 확정 값은 놓거나 키를 눌렀을 때 갱신됩니다.', node: <SliderExample /> }],
+    code: `import { Slider } from '@logic-ui-kit/primitives/slider';
+
+<Slider.Root value={volume} onValueChange={setVolume} min={0} max={100} step={1} name="volume">
+  <Slider.Track>
+    <Slider.Range style={{ width: 'var(--logicui-slider-percent)' }} />
+  </Slider.Track>
+  <Slider.Thumb aria-label="볼륨" style={{ left: 'var(--logicui-slider-percent)' }} />
+</Slider.Root>`,
+    parts: [
+      {
+        name: 'Slider.Root',
+        description: '포인터 입력을 받는 영역. 현재 비율을 CSS 변수 --logicui-slider-percent(예: 40%)로 노출해 Range와 Thumb의 위치를 그릴 수 있게 한다.',
+        props: [
+          { name: 'value', type: 'number', description: '제어 모드의 값.' },
+          { name: 'defaultValue', type: 'number', description: '비제어 모드의 초기 값.', default: 'min' },
+          { name: 'onValueChange', type: '(value: number) => void', description: '값이 바뀌어야 할 때 호출된다(드래그 중에도 계속).' },
+          { name: 'onValueCommit', type: '(value: number) => void', description: '값을 확정했을 때(포인터를 뗄 때, 키를 눌렀을 때) 호출된다.' },
+          { name: 'min', type: 'number', description: '최솟값.', default: '0' },
+          { name: 'max', type: 'number', description: '최댓값.', default: '100' },
+          { name: 'step', type: 'number', description: '값의 간격. PageUp/PageDown은 step의 10배씩 움직인다.', default: '1' },
+          { name: 'orientation', type: "'horizontal' | 'vertical'", description: '방향. 수직은 아래가 min이다.', default: "'horizontal'" },
+          { name: 'disabled', type: 'boolean', description: '비활성화. 포커스와 입력을 막는다.' },
+          { name: 'name', type: 'string', description: '폼 제출용 이름. 현재 값이 숨은 input으로 제출된다.' },
+        ],
+      },
+      { name: 'Slider.Track', description: '전체 범위를 나타내는 막대.' },
+      { name: 'Slider.Range', description: 'min부터 현재 값까지의 구간.' },
+      { name: 'Slider.Thumb', description: 'role="slider"인 손잡이. aria-label 또는 aria-labelledby로 이름을 붙인다. aria-valuemin·max·now를 자동으로 갱신한다.' },
+    ],
+    keys: [
+      ['→ / ↑', '값을 step만큼 늘린다.'],
+      ['← / ↓', '값을 step만큼 줄인다.'],
+      ['PageUp / PageDown', '값을 step의 10배만큼 늘리거나 줄인다.'],
+      ['Home / End', '값을 min / max로 옮긴다.'],
+      ['Tab', '다음 포커스 가능한 요소로 이동한다.'],
     ],
   },
 ];

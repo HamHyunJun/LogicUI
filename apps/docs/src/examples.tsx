@@ -1,5 +1,5 @@
 import { Dialog as Headless } from '@logic-ui-kit/primitives/dialog';
-import { Accordion, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
+import { Accordion, Breadcrumb, Button, Checkbox, Dialog, Menu, Popover, Progress, RadioGroup, Slider, Switch, Tabs, ToggleGroup, Tooltip } from '@logic-ui-kit/ui';
 import * as React from 'react';
 import { Toggle } from './doc-ui';
 
@@ -497,6 +497,59 @@ export function BreadcrumbExample() {
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
+    </div>
+  );
+}
+
+export function SliderExample() {
+  const [volume, setVolume] = React.useState(40);
+  const [committed, setCommitted] = React.useState(40);
+  const [brightness, setBrightness] = React.useState(70);
+  return (
+    <div className="grid gap-6 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid gap-3">
+        <div className="flex justify-between text-sm">
+          <span id="volume-label" className="font-medium">
+            볼륨
+          </span>
+          <span className="font-mono text-zinc-500">
+            {volume} (확정 {committed})
+          </span>
+        </div>
+        <div className="px-2.5">
+          <Slider.Root value={volume} onValueChange={setVolume} onValueCommit={setCommitted}>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb aria-labelledby="volume-label" />
+          </Slider.Root>
+        </div>
+      </div>
+      <div className="flex items-end gap-8">
+        <div className="grid justify-items-center gap-3">
+          <span id="brightness-label" className="text-sm font-medium">
+            밝기 (수직, step 10)
+          </span>
+          <Slider.Root orientation="vertical" step={10} value={brightness} onValueChange={setBrightness}>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb aria-labelledby="brightness-label" />
+          </Slider.Root>
+          <span className="font-mono text-sm text-zinc-500">{brightness}</span>
+        </div>
+        <div className="grid flex-1 gap-3 px-2.5">
+          <span id="locked-label" className="text-sm font-medium text-zinc-500">
+            비활성
+          </span>
+          <Slider.Root disabled defaultValue={30}>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb aria-labelledby="locked-label" />
+          </Slider.Root>
+        </div>
+      </div>
     </div>
   );
 }
