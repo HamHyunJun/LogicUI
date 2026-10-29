@@ -10,7 +10,32 @@
 | [`@logic-ui-kit/ui`](packages/ui) | primitives에 Tailwind CSS 스타일을 입힌 레퍼런스 디자인 시스템 |
 | [`apps/docs`](apps/docs) | Vite + React 기반 인터랙티브 문서·플레이그라운드 |
 
-## 시작하기
+## 설치
+
+```bash
+pnpm add @logic-ui-kit/primitives   # 스타일 없는 헤드리스 컴포넌트
+pnpm add @logic-ui-kit/ui           # Tailwind 스타일 버전 (primitives 포함)
+```
+
+`react`, `react-dom` 18 이상이 필요합니다. 서브패스로 필요한 컴포넌트만 가져올 수 있습니다(`@logic-ui-kit/primitives/dialog`).
+
+`@logic-ui-kit/ui`는 CSS를 번들하지 않고 Tailwind v4 클래스만 씁니다. 사용하는 앱의 CSS에서 패키지를 스캔하도록 등록하세요.
+
+```css
+@import 'tailwindcss';
+
+/* CSS 파일 기준 node_modules 상대 경로 */
+@source '../node_modules/@logic-ui-kit/ui/dist';
+
+/* 클래스 기반 다크 모드를 쓸 때 */
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+```tsx
+import { Dialog, Button } from '@logic-ui-kit/ui';
+```
+
+## 개발 환경
 
 > Node 20은 2026년 4월에 지원이 종료되었고, Vitest 5 · tsup 9 · jsdom 30이 Node 22.22 이상을 요구하므로 최소 버전을 22.22로 둡니다.
 
@@ -67,4 +92,6 @@ import { Dialog } from '@logic-ui-kit/primitives/dialog';
 ## 배포
 
 `pnpm changeset`으로 변경 기록을 남기고 main에 머지하면 Release 워크플로가 버전 업 PR을 열고,
-그 PR이 머지되면 npm에 배포합니다. 저장소 시크릿에 `NPM_TOKEN`이 필요합니다.
+그 PR이 머지되면 npm에 배포합니다. 저장소 시크릿에 `NPM_TOKEN`(`@logic-ui-kit` 스코프 쓰기 권한)이 필요합니다.
+
+Settings → Actions → General의 **Allow GitHub Actions to create and approve pull requests**가 꺼져 있으면 버전 업 PR이 자동으로 만들어지지 않습니다. 이때는 `changeset-release/main` 브랜치에서 `main`으로 PR을 직접 엽니다.
