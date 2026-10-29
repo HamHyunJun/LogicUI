@@ -14,7 +14,8 @@
 | `src/main.tsx` | React 진입점 |
 | `index.html` | `lang="ko"`, 타이틀 `LogicUI 문서` |
 | `vite.config.ts` | `@vitejs/plugin-react` + `@tailwindcss/vite` |
-| `package.json` | `build`는 `tsc --noEmit && vite build` |
+| `package.json` | `build`는 `tsc --noEmit && vite build`, `e2e`는 `playwright test` |
+| `playwright.config.ts`, `e2e/*.spec.ts` | 브라우저 E2E: Dialog(포커스 트랩·Esc·중첩), Tabs/Accordion 키보드, Tooltip/Popover 배치·닫기 |
 
 ## For AI Agents
 
@@ -26,7 +27,9 @@
 - changeset 대상이 아니다 (`.changeset/config.json`의 `ignore`).
 
 ### Testing Requirements
-- 자동 테스트 없음. `pnpm --filter @logic-ui-kit/docs typecheck`와 `pnpm build`로 검증하고, jsdom에서 확인할 수 없는 포커스·클릭 순서 변경은 빌드 후 Playwright로 실제 브라우저에서 확인한다.
+- `pnpm --filter @logic-ui-kit/docs typecheck`와 `pnpm build`로 검증한다.
+- `e2e/`에 Playwright(Chromium) 테스트가 있다. 루트에서 `pnpm e2e`를 실행하면 docs를 빌드하고 `vite preview`(4173)로 띄워 검사한다. 처음 한 번 `pnpm --filter @logic-ui-kit/docs exec playwright install chromium`이 필요하다.
+- jsdom이 못 잡는 포커스 트랩·Esc·위치(겹침, 뒤집기)를 다룬다. 새 컴포넌트 예제를 추가하면 시나리오도 추가한다.
 
 ## Dependencies
 
