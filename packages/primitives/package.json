@@ -23,7 +23,9 @@
     "tabs",
     "accordion",
     "popover",
-    "tooltip"
+    "tooltip",
+    "menu",
+    "dropdown-menu"
   ],
   "sideEffects": false,
   "type": "module",
@@ -81,6 +83,16 @@
         "default": "./dist/popover/index.cjs"
       }
     },
+    "./menu": {
+      "import": {
+        "types": "./dist/menu/index.d.ts",
+        "default": "./dist/menu/index.mjs"
+      },
+      "require": {
+        "types": "./dist/menu/index.d.cts",
+        "default": "./dist/menu/index.cjs"
+      }
+    },
     "./tooltip": {
       "import": {
         "types": "./dist/tooltip/index.d.ts",
@@ -106,6 +118,9 @@
       ],
       "popover": [
         "./dist/popover/index.d.ts"
+      ],
+      "menu": [
+        "./dist/menu/index.d.ts"
       ],
       "tooltip": [
         "./dist/tooltip/index.d.ts"

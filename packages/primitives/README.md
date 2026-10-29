@@ -45,8 +45,9 @@ import { Dialog } from '@logic-ui-kit/primitives/dialog';
 | Accordion | `@logic-ui-kit/primitives/accordion` | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
 | Popover | `@logic-ui-kit/primitives/popover` | 비모달 Dialog |
 | Tooltip | `@logic-ui-kit/primitives/tooltip` | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
+| Menu | `@logic-ui-kit/primitives/menu` | [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) |
 
-Popover와 Tooltip의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다.
+Popover·Tooltip·Menu의 위치 계산은 자체 구현이라 화살표·max-height·스크롤 컨테이너 클리핑은 지원하지 않습니다. Menu는 서브메뉴를 지원하지 않고, 글자 탐색(typeahead)은 IME 조합 입력(예: 한글)에서 동작하지 않습니다.
 
 스타일이 입혀진 버전은 [`@logic-ui-kit/ui`](https://www.npmjs.com/package/@logic-ui-kit/ui)를 보세요.
 
